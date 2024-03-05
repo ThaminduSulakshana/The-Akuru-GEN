@@ -87,13 +87,13 @@ def update_profile():
     return render_template('profile.html', username=session['username'])
 
 
-# @app.route('/Qanswering')
-# def Qanswering():
-#     return render_template('Qanswering.html')
+@app.route('/Qanswering')
+def Qanswering():
+    return render_template('Qanswering.html')
 
-# @app.route('/translate')
-# def translate():
-#     return render_template('translate.html')
+@app.route('/translate')
+def translate():
+    return render_template('translate.html')
     
 
 if __name__ == '__main__':
