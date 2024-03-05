@@ -86,7 +86,20 @@ def update_profile():
         return redirect(url_for('welcome'))
     return render_template('profile.html', username=session['username'])
 
+@app.route('/subscribe', methods=['POST'])
+@login_required
+def subscribe():
+    subscription_level = request.form.get('subscription_level')
 
+    if subscription_level == 'standard':
+        session['subscription_level'] = 'standard'
+        flash('You have subscribed to the Standard package.', 'success')
+    elif subscription_level == 'premium':
+        session['subscription_level'] = 'premium'
+        flash('You have subscribed to the Premium package.', 'success')
+
+    return redirect(url_for('welcome'))
+    
 @app.route('/Qanswering')
 def Qanswering():
     return render_template('Qanswering.html')
