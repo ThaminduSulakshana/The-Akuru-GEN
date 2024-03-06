@@ -11,10 +11,6 @@ app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
 app.config.from_object(config)
 
-client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
-db = client["gg"]
-col = db["gg"]
-
 # Decorator to check if the user is logged in
 def login_required(f):
     @wraps(f)
@@ -38,17 +34,9 @@ subscribe_routes(app)
 from routes.translate import translation_routes
 translation_routes(app)
 
+from routes.Qanswering import Qanswering_routes
+Qanswering_routes(app)
 
-@app.route('/Qanswering')
-@login_required
-def Qanswering():
-    if 'subscription_level' in session and session['subscription_level'] == 'standard':
-        flash('You do not have access to Qanswering with the Standard package. Please upgrade to Premium.', 'error')
-        return redirect(url_for('subscribe'))
-    
-    return render_template('Qanswering.html')
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True)

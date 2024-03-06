@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="/static/home.css">
-    <title>English to French Translation</title>
+    <script src="/static/js/translator_script.js" defer></script>
+    <title>English to sinhla Translation</title>
 </head>
 <body>
     <nav>
@@ -16,33 +17,44 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    <div class="container">
-        <header>
-            <h1>English to French Translation</h1>
-        </header>
+        
+<div style="text-align: center; margin-top: 50px;">
+    <h1>Simple Translator</h1>
+    <form method="POST" action="/translate" onsubmit="return detectLanguage()">
+        <label for="input_text">Enter text to translate:</label><br>
+        <textarea id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea><br><br>
+        
+        <div id="detected_language" style="font-style: italic;"></div><br>
 
-        <section class="translation-section">
-            <form method="post" action="/translate">
-                <label for="input_text">Enter English Text:</label>
-                <textarea id="input_text" name="input_text" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit">Translate</button>
-            </form>
-        </section>
-        <div class="container2">
-            {% if input_text or translated_text %}
-            <section class="result-section">
-                <div class="text-block">
-                    <h3>Input Text (English):</h3>
-                    <p>{{ input_text }}</p>
-                </div>
-                <div class="text-block">
-                    <h3>Translated Text:</h3>
-                    <p>{{ translated_text }}</p>
-                </div>
-            </section>
+        <label for="target_language">Select target language:</label>
+        <!-- <select id="target_language" name="target_language" required>
+            {% for language in languages %}
+                <option value="{{ language.code }}">{{ language.name }}</option>
+            {% endfor %}
+        </select><br><br> -->
+        
+        <input type="submit" value="Translate">
+    </form>
+    
+    {% if input_text %}
+        <h3>Original Text:</h3>
+        <p>{{ input_text }}</p>
+        
+        <h3>Translated Text:</h3>
+        <p>{{ translated_text }}</p>
+        
+        {% if audio_filename %}
+            <audio controls>
+                <source src="{{ audio_filename }}" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
         {% endif %}
-        </div>
-    </div>
+        
+        <!-- {% if detected_language %}
+            <p>Detected Language: {{ detected_language }}</p>
+        {% endif %} -->
+    {% endif %}
+</div>
+
 </body>
 </html>
