@@ -12,7 +12,7 @@ db = client["gg"]
 col = db["gg"]
 
 # Load the question-answering pipeline from the pickle file
-with open('question_answerer_pipeline.pkl', 'rb') as model_file:
+with open('models/question_answerer_pipeline.pkl', 'rb') as model_file:
     question_answerer = pickle.load(model_file)
 
 def Qanswering_routes(app):

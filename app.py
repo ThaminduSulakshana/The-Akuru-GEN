@@ -38,17 +38,9 @@ subscribe_routes(app)
 from routes.translate import translation_routes
 translation_routes(app)
 
+from routes.Qanswering import Qanswering_routes
+Qanswering_routes(app)
 
-@app.route('/Qanswering')
-@login_required
-def Qanswering():
-    if 'subscription_level' in session and session['subscription_level'] == 'standard':
-        flash('You do not have access to Qanswering with the Standard package. Please upgrade to Premium.', 'error')
-        return redirect(url_for('subscribe'))
-    
-    return render_template('Qanswering.html')
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
