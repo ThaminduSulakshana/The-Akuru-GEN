@@ -11,10 +11,6 @@ app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
 app.config.from_object(config)
 
-client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
-db = client["gg"]
-col = db["gg"]
-
 # Decorator to check if the user is logged in
 def login_required(f):
     @wraps(f)

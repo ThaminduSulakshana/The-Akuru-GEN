@@ -159,5 +159,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+
+.vscode
 # Ignore specific file
 models/qanswerer_pipeline.pkl
+static/translated_audio/
