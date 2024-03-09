@@ -7,9 +7,11 @@ import uuid
 from functools import wraps
 
 
+
 app = Flask(__name__)
 app.secret_key = b'\xcc^\x91\xea\x17-\xd0W\x03\xa7\xf8J0\xac8\xc5'
 app.config.from_object(config)
+
 
 # Decorator to check if the user is logged in
 def login_required(f):
@@ -39,4 +41,6 @@ Qanswering_routes(app)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5069)
+
+
