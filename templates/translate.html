@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/home.css">
+    <script src="/static/js/translator_script.js" defer></script>
+    <title>English to sinhla Translation</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('welcome') }}">Profile</a>
+        <a href="{{ url_for('subscribe') }}">Pricing</a>
+        <a href="{{ url_for('login') }}">LogIn</a>
+        <a href="{{ url_for('register') }}">SignUp</a>
+    </nav>
+        
+<div style="text-align: center; margin-top: 50px;">
+    <h1>Simple Translator</h1>
+    <form method="POST" action="/translate" onsubmit="return detectLanguage()">
+        <label for="input_text">Enter text to translate:</label><br>
+        <textarea id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea><br><br>
+        
+        <div id="detected_language" style="font-style: italic;"></div><br>
+
+        <label for="target_language">Select target language:</label>
+        <!-- <select id="target_language" name="target_language" required>
+            {% for language in languages %}
+                <option value="{{ language.code }}">{{ language.name }}</option>
+            {% endfor %}
+        </select><br><br> -->
+        
+        <input type="submit" value="Translate">
+    </form>
+    
+    {% if input_text %}
+        <h3>Original Text:</h3>
+        <p>{{ input_text }}</p>
+        
+        <h3>Translated Text:</h3>
+        <p>{{ translated_text }}</p>
+        
+        {% if audio_filename %}
+            <audio controls>
+                <source src="{{ audio_filename }}" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        {% endif %}
+        
+        <!-- {% if detected_language %}
+            <p>Detected Language: {{ detected_language }}</p>
+        {% endif %} -->
+    {% endif %}
+</div>
+
+</body>
+</html>

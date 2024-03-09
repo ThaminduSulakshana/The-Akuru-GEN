@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/Qanswering.css">
+    <link rel="stylesheet" href="/static/home.css">
+    <title>Question-answering-PyTorch</title>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('welcome') }}">Profile</a>
+        <a href="{{ url_for('subscribe') }}">Pricing</a>
+        <a href="{{ url_for('login') }}">LogIn</a>
+        <a href="{{ url_for('register') }}">SignUp</a>
+    </nav>
+    <div class="container">
+        <h1>Question-answering-PyTorch</h1>
+        
+        <form id="qaForm" action="/answer" method="post" onsubmit="return validateForm()">
+            <label for="context">Context:</label>
+            <textarea id="context" name="context" rows="4" cols="50" placeholder="Enter context here..." required></textarea><br>
+    
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question" placeholder="Enter your question..." required>
+    
+            <div class="containerb">
+                <button type="submit" class="btn btn-primary">Get Answer</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        function validateForm() {
+            var context = document.getElementById("context").value;
+            var question = document.getElementById("question").value;
+    
+            if (context.trim() === "" || question.trim() === "") {
+                alert("Please enter both context and question");
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
+    <div class="container2">
+        {% if context %}
+            <div class="result">
+                <h3>Context:</h3>
+                <p>{{ context }}</p>
+
+                <h3>Question:</h3>
+                <p>{{ question }}</p>
+
+                <h3>Answer:</h3>
+                <p>{{ answer }}</p>
+            </div>
+        {% endif %}
+    </div>
+    </div>
+</body>
+</html>
