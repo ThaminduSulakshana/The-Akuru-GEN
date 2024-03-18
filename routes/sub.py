@@ -1,3 +1,4 @@
+# Inside your Flask application file (e.g., app.py)
 from flask import render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
 from hashlib import sha256
@@ -28,7 +29,7 @@ def subscribe_routes(app):
         if request.method == 'POST':
             subscription_level = request.form.get('subscription_level')
 
-            if subscription_level == 'standard' or subscription_level == 'premium':
+            if subscription_level in {'free', 'standard', 'premium'}:
                 # Update the user's subscription level in the database
                 username = session['username']
                 col.update_one({'username': username}, {'$set': {'subscription_level': subscription_level}})
@@ -37,4 +38,4 @@ def subscribe_routes(app):
                 flash(f'You have subscribed to the {subscription_level.capitalize()} package.', 'success')
 
             return redirect(url_for('subscribe'))
-        return render_template('subscribe.html')
+        return render_template('subscribe.html', default_subscription='free')  # Set the default value to 'free'
