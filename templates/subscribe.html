@@ -10,6 +10,7 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>Subscribe</title>
 </head>
+
 <body>
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
@@ -27,24 +28,32 @@
     {% endif %}
     
     <main>
-        <div class="box" id="freeBox" onclick="selectSubscription('free')">
+        <div class="box" id="freeBox" onclick="showSubscriptionInfo('free')">
             <h2>Free</h2>
             <p>Choose the Free subscription level.</p>
         </div>
-        <div class="box" id="standardBox" onclick="selectSubscription('standard')">
+        <div class="box" id="standardBox" onclick="showSubscriptionInfo('standard')">
             <h2>Standard</h2>
             <p>Choose the Standard subscription level.</p>
         </div>
-        <div class="box" id="premiumBox" onclick="selectSubscription('premium')">
+        <div class="box" id="premiumBox" onclick="showSubscriptionInfo('premium')">
             <h2>Premium</h2>
             <p>Choose the Premium subscription level.</p>
         </div>
     </main>
 
+    <div id="subscriptionInfo" class="hidden">
+        <h3 id="subscriptionTitle"></h3>
+        <p id="subscriptionDescription"></p>
+        <button id="selectButton" onclick="selectSubscription()" style="display: none;">Select Package</button>
+        <button id="addButton" onclick="addSubscription()" style="display: none;">Add to Cart</button>
+    </div>
+
     <form id="subscriptionForm" method="POST" action="{{ url_for('subscribe') }}">
         <input type="hidden" id="selected_subscription_level" name="subscription_level">
     </form>
     
+
     <a href="{{ url_for('welcome') }}">Back to Welcome</a>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -58,3 +67,4 @@
     {% endwith %}
 </body>
 </html>
+
