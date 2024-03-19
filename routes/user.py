@@ -17,10 +17,11 @@ def user_routes(app):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if 'username' not in session:
-                flash('Please log in to continue', 'error')
+                flash('Please log in to continue', 'success')
                 return redirect(url_for('login'))
             return f(*args, **kwargs)
         return decorated_function   
+    
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
@@ -31,7 +32,7 @@ def user_routes(app):
                 session['username'] = username
                 return redirect(url_for('welcome'))
             else:
-                return render_template('login.html', error='Invalid username or password')
+                flash('Invalid username or password', 'error')
         return render_template('login.html')
 
     @app.route('/register', methods=['GET', 'POST'])
@@ -43,18 +44,16 @@ def user_routes(app):
             if password == confirm_password:
                 hashed_password = sha256(password.encode("utf-8")).hexdigest()
                 col.insert_one({'_id': uuid.uuid4().hex, 'username': username, 'password': hashed_password})
+                flash('Registration successful! You can now log in.', 'success')
                 return redirect(url_for('login'))
             else:
-                return render_template('register.html', error='Passwords do not match')
+                flash('Passwords do not match', 'error')
         return render_template('register.html')
 
     @app.route('/welcome')
+    @login_required
     def welcome():
-        if 'username' in session:
-            return render_template('profile.html', username=session['username'])
-        else:
-            flash('Please log in to continue', 'error')
-            return redirect(url_for('login'))
+        return render_template('profile.html', username=session['username'])
 
     @app.route('/delete_profile', methods=['GET', 'POST'])
     @login_required
@@ -64,7 +63,7 @@ def user_routes(app):
             col.delete_one({'username': username})
             session.pop('username', None)
             flash('Your profile has been deleted.', 'info')
-            return redirect(url_for('home'))  # Assuming 'home' route exists
+            return redirect(url_for('login'))
         return render_template('profile.html')
 
     @app.route('/update_profile', methods=['GET', 'POST'])
@@ -77,3 +76,11 @@ def user_routes(app):
             flash('Your profile has been updated.', 'success')
             return redirect(url_for('welcome'))
         return render_template('profile.html', username=session['username'])
+
+    @app.route('/logout')
+    def logout():
+        session.pop('username', None)
+        flash('You have been logged out.', 'success')
+        return redirect(url_for('login'))
+
+    return app

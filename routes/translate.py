@@ -50,6 +50,9 @@ def translation_routes(app):
     @app.route("/detect_language", methods=["POST"])
     def detect_language_endpoint():
         input_text = request.form.get("input_text")
+        
+        # Implement your language detection logic here
+        # For simplicity, let's assume you're using langid again
         lang, _ = langid.classify(input_text)
         
         # Return the detected language name
