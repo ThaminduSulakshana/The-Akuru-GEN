@@ -1,14 +1,13 @@
-<!-- subscribe.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>Subscribe</title>
 </head>
 <body>
@@ -26,29 +25,36 @@
     {% else %}
         <p>You have not selected a subscription package yet.</p>
     {% endif %}
+    
+    <main>
+        <div class="box" id="freeBox" onclick="selectSubscription('free')">
+            <h2>Free</h2>
+            <p>Choose the Free subscription level.</p>
+        </div>
+        <div class="box" id="standardBox" onclick="selectSubscription('standard')">
+            <h2>Standard</h2>
+            <p>Choose the Standard subscription level.</p>
+        </div>
+        <div class="box" id="premiumBox" onclick="selectSubscription('premium')">
+            <h2>Premium</h2>
+            <p>Choose the Premium subscription level.</p>
+        </div>
+    </main>
 
-    <form method="post" action="{{ url_for('subscribe') }}">
-        <label for="subscription_level">Choose a subscription level:</label>
-        <select id="subscription_level" name="subscription_level" required>
-            <option value="free" {% if default_subscription == 'free' %}selected{% endif %}>Free</option>
-            <option value="standard" {% if session.subscription_level == 'standard' %}selected{% endif %}>Standard</option>
-            <option value="premium" {% if session.subscription_level == 'premium' %}selected{% endif %}>Premium</option>
-        </select>
-
-        <button type="submit">Subscribe</button>
+    <form id="subscriptionForm" method="POST" action="{{ url_for('subscribe') }}">
+        <input type="hidden" id="selected_subscription_level" name="subscription_level">
     </form>
     
     <a href="{{ url_for('welcome') }}">Back to Welcome</a>
 
-    
     {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}" role="alert">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

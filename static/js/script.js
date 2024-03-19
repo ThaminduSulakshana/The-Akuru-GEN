@@ -1,4 +1,4 @@
-// script.js
+// Function to redirect to the pages
 function redirectToRegister() {
     window.location.href = "/register"; // Adjust the URL as needed
 }
@@ -15,7 +15,7 @@ function redirectsub() {
     window.location.href = "/subscribe"; // Adjust the URL as needed
 }
 
-
+// Function to detect language using AJAX request to Flask server
 function detectLanguage() {
     var inputText = document.getElementById('input_text').value;
     var detectedLanguageElement = document.getElementById('detected_language');
@@ -34,4 +34,20 @@ function detectLanguage() {
 
     // Allow the form to be submitted
     return true;
+}
+
+//selectSubscription function takes one parameter level
+function selectSubscription(level) {
+    const subscriptionBoxes = document.querySelectorAll('.box');
+    const hiddenInput = document.getElementById('selected_subscription_level');
+    
+    // Remove 'selected' class from all subscription boxes
+    subscriptionBoxes.forEach(box => {
+    });
+    
+    // Update the hidden input field value with the selected level
+    hiddenInput.value = level;
+    
+    // Submit the form when a subscription box is clicked
+    document.getElementById('subscriptionForm').submit();
 }
