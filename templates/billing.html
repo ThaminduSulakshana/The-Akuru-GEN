@@ -30,7 +30,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Add Address</button>
         </form>
-        <h2>Your Current Billing Addresses:</h2>
+        <h2>Current Billing Addresses:</h2>
         {% for index, billing_address in billing_addresses_enum %}
         <form action="{{ url_for('update_billing', billing_index=index) }}" method="post">
             <div class="form-group">
