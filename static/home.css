@@ -23,7 +23,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 60vh;
 }
 
 .box {
@@ -39,4 +39,8 @@ main {
 
 #ticketBox {
     border: 2px solid #00d9ff;
+}
+
+.detectLanguage {
+    color: blue;
 }

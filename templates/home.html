@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-    <script src="/static/js/script.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>the akuru Website</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-
+    
     <main>
         <div class="box" id="ticketBox" onclick="redirectTotranslate()">
             <h2>Translate</h2>

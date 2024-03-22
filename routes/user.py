@@ -77,6 +77,7 @@ def user_routes(app):
             return redirect(url_for('welcome'))
         return render_template('profile.html', username=session['username'])
 
+
     @app.route('/logout')
     def logout():
         session.pop('username', None)
