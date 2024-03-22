@@ -7,14 +7,17 @@ import time
 import langid
 
 def translation_routes(app):
+    # Get language codes and names for translation options
     language_codes = googletrans.LANGUAGES
     languages = [{"code": code, "name": name} for code, name in language_codes.items()]
 
+    # Function to translate text to the target language
     def translate_text(text, target_lang):
         translator = Translator()
         translation = translator.translate(text, dest=target_lang)
         return translation.text
 
+    # Function to detect the language of the input text
     def detect_language(text):
         # Use langid library to detect language
         lang, _ = langid.classify(text)
@@ -34,7 +37,10 @@ def translation_routes(app):
             # Set the correct target language code for translation
             target_language_code = "si" if input_language == "en" else "en"
 
+            # Translate the input text to the target language
             translated_text = translate_text(input_text, target_language_code)
+            
+            # Generate audio for translated text
             timestamp = int(time.time())
             filename = f"static/translated_audio/op_{timestamp}.mp3"
             tts = gTTS(translated_text, lang=target_language_code)
@@ -46,13 +52,12 @@ def translation_routes(app):
 
         return render_template("translate.html", languages=languages)
 
-
     @app.route("/detect_language", methods=["POST"])
     def detect_language_endpoint():
+        # Endpoint to detect the language of the input text
         input_text = request.form.get("input_text")
         
-        # Implement your language detection logic here
-        # For simplicity, let's assume you're using langid again
+        # Use langid library to detect language
         lang, _ = langid.classify(input_text)
         
         # Return the detected language name
