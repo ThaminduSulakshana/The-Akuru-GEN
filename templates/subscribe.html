@@ -46,13 +46,17 @@
         <h3 id="subscriptionTitle"></h3>
         <p id="subscriptionDescription"></p>
         <button id="selectButton" onclick="selectSubscription()" style="display: none;">Select Package</button>
-        <button id="addButton" onclick="addSubscription()" style="display: none;">Add to Cart</button>
+
     </div>
 
     <form id="subscriptionForm" method="POST" action="{{ url_for('subscribe') }}">
         <input type="hidden" id="selected_subscription_level" name="subscription_level">
     </form>
     
+    <form action="{{ url_for('add_billing') }}" method="GET" id="billingForm" style="display: none;">
+        <button type="submit" class="btn btn-primary">Add Billing Address</button>
+    </form>
+
 
     <a href="{{ url_for('welcome') }}">Back to Welcome</a>
 
