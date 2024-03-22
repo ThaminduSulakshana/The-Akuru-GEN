@@ -51,6 +51,10 @@ Qanswering_routes(app)
 from routes.billing import billing_routes
 billing_routes(app)
 
+# Import feedback-related routes
+from routes.feedback import feedback_routes
+feedback_routes(app)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
