@@ -7,6 +7,7 @@ import config
 import certifi
 import pickle
 
+# Establishing connection to MongoDB
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
 db = client["gg"]
 col = db["gg"]
@@ -16,28 +17,47 @@ with open('models/question_answerer_pipeline.pkl', 'rb') as model_file:
     question_answerer = pickle.load(model_file)
 
 def Qanswering_routes(app):
-
-    # Decorator to check if the user is logged in
-    def login_required(f):
+    """
+    Define routes related to question answering.
+    """
+    # Decorator to check if the user is logged in and has selected a subscription plan
+    def login_and_subscription_required(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if 'username' not in session:
                 flash('Please log in to continue', 'error')
                 return redirect(url_for('login'))
+
+            # Check if the user has a subscription level
+            if 'subscription_level' not in session:
+                flash('You do not have access to Qanswering. Please subscribe to a package.', 'error')
+                return redirect(url_for('subscribe'))
+
             return f(*args, **kwargs)
         return decorated_function
-
+    
     @app.route('/Qanswering')
-    @login_required
+    @login_and_subscription_required
     def Qanswering():
-        if 'subscription_level' in session and session['subscription_level'] == 'standard':
+        """
+        Endpoint to access question answering functionality.
+        """
+        if session['subscription_level'] == 'standard':
             flash('You do not have access to Qanswering with the Standard package. Please upgrade to Premium.', 'error')
+            return redirect(url_for('subscribe'))
+        # Check if the user has a premium subscription
+        if session['subscription_level'] == 'free':
+            flash('You do not have access to Qanswering with the Free package. Please upgrade to Premium.', 'error')
             return redirect(url_for('subscribe'))
 
         return render_template('Qanswering.html')
 
     @app.route('/answer', methods=['POST'])
+    @login_and_subscription_required
     def answer():
+        """
+        Endpoint to receive a question and context, and return an answer.
+        """
         context = request.form['context']
         question = request.form['question']
 

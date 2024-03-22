@@ -6,6 +6,7 @@ from functools import wraps
 import config
 import certifi
 
+# Connecting to MongoDB database
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
 db = client["gg"]
 col = db["gg"]
@@ -24,6 +25,9 @@ def billing_routes(app):
     @app.route('/add_billing', methods=['GET', 'POST'])
     @login_required
     def add_billing():
+        """
+        Endpoint to add a billing address.
+        """
         if request.method == 'POST':
             billing_address = request.form['billing_address']
             card_nickname = request.form['card_nickname']
@@ -31,6 +35,7 @@ def billing_routes(app):
             expiry_date = request.form['expiry_date']
             cvv = request.form['cvv']
             current_user = session['username']
+            # Updating user's billing addresses in the database
             col.update_one(
                 {'username': current_user},
                 {
@@ -58,12 +63,16 @@ def billing_routes(app):
     @app.route('/update_billing/<int:billing_index>', methods=['POST'])
     @login_required
     def update_billing(billing_index):
+        """
+        Endpoint to update a billing address.
+        """
         new_billing_address = request.form['new_billing_address' + str(billing_index)]
         new_card_nickname = request.form['new_card_nickname' + str(billing_index)]
         new_card_number = request.form['new_card_number' + str(billing_index)]
         new_expiry_date = request.form['new_expiry_date' + str(billing_index)]
         new_cvv = request.form['new_cvv' + str(billing_index)]
         current_user = session['username']
+        # Updating the specified billing address for the user in the database
         col.update_one(
             {'username': current_user, 'billing_addresses.' + str(billing_index): {'$exists': True}},
             {
@@ -82,9 +91,12 @@ def billing_routes(app):
     @app.route('/delete_billing/<int:billing_index>', methods=['POST'])
     @login_required
     def delete_billing(billing_index):
+        """
+        Endpoint to delete a billing address.
+        """
         current_user = session['username']
+        # Removing the specified billing address for the user from the database
         col.update_one({'username': current_user}, {'$unset': {'billing_addresses.' + str(billing_index): ""}})
         col.update_one({'username': current_user}, {'$pull': {'billing_addresses': None}})
         flash('Billing address deleted successfully.', 'success')
         return redirect(url_for('add_billing'))
-
