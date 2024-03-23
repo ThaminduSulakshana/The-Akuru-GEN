@@ -3,18 +3,19 @@
 <head>
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="/static/home.css">
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
 </head>
 <body>
-    <<nav>
+    <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('welcome') }}">Profile</a>
         <a href="{{ url_for('subscribe') }}">Pricing</a>
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    <div class="container">
+    <div class="container2">
         <h1 class="mt-4">Welcome, {{ username }}!</h1>
         <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid mb-4">
         
@@ -27,6 +28,30 @@
         <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
             <input type="submit" value="Delete Account" class="btn btn-danger">
         </form>
+
+        {% if 'username' in session %}
+        <form action="{{ url_for('logout') }}" method="get">
+            <input type="submit" value="Logout" class="btn btn-secondary">
+        </form>
+        {% endif %}
     </div>
+    
+    <form action="{{ url_for('add_billing') }}" method="GET">
+        <button type="submit" class="btn btn-primary">Add Billing Address</button>
+    </form>
+
+    <form action="{{ url_for('add_feedback') }}" method="GET">
+        <button type="submit" class="btn btn-primary">Add Feedback</button>
+    </form>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
 </body>
 </html>
