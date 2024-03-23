@@ -163,4 +163,5 @@ cython_debug/
 .vscode
 # Ignore specific file
 models/qanswerer_pipeline.pkl
+models/question_answerer_pipeline.pkl
 static/translated_audio/
