@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <title>English to French Translation</title>
+    <title>Translation</title>
 </head>
 <body>
     <nav>
@@ -18,23 +19,28 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    <div class="container">
-        <div style="text-align: center; margin-top: 50px;">
-            <h1>Simple Translator</h1>
+    
+    <div class="container2">
+        <div class="jumbotron">
+            <h1 class="display-4">SEES Translator</h1>
             <form method="POST" action="/translate" onsubmit="return detectLanguage()">
-                <label for="input_text">Enter text to translate:</label><br>
-                <textarea id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea><br><br>
+                <div class="form-group">
+                    <label for="input_text">Enter text to translate:</label>
+                    <textarea class="form-control" id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea>
+                </div>
                 
-                <div class="detectLanguage" id="detected_language" style="font-style: italic;"></div><br>
+                <div class="detectLanguage" id="detected_language"></div><br>
 
-                <label for="target_language">Select target language:</label>
-                <select id="target_language" name="target_language" required>
-                    {% for language in languages %}
-                        <option value="{{ language.code }}">{{ language.name }}</option>
-                    {% endfor %}
-                </select><br><br>
+                <div class="form-group">
+                    <label for="target_language">Select target language:</label>
+                    <select class="form-control" id="target_language" name="target_language" required>
+                        {% for language in languages %}
+                            <option value="{{ language.code }}">{{ language.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 
-                <input type="submit" value="Translate">
+                <button type="submit" class="btn btn-primary">Translate</button>
             </form>
 
         
@@ -51,12 +57,13 @@
                         Your browser does not support the audio element.
                     </audio>
                 {% endif %}
-                
-                <!-- {% if detected_language %}
-                    <p>Detected Language: {{ detected_language }}</p>
-                {% endif %} -->
             {% endif %}
         </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
