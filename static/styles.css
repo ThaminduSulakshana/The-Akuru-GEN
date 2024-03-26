@@ -44,7 +44,7 @@
 
 .alert-error {
     color: #f5f5f5;
-    background-color: #fff705;
+    background-color: #f11a1a;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -55,7 +55,7 @@
 }
 .alert-success {
     color: #f5f5f5;
-    background-color: #00ff3c;
+    background-color: #1e81b0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -67,7 +67,7 @@
 
 .alert-info{
     color: #f5f5f5;
-    background-color: #2998e2;
+    background-color: #1e81b0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
