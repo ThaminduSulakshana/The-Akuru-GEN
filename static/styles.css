@@ -1,15 +1,58 @@
-/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-/* Center the container vertically and horizontally */
-.container {
+nav {
+    background-color: #0026ffb4;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+}
+ /* Add any additional custom styles here */
+ .logo-container {
+    text-align: center;
+    margin-top: 70px; /* Adjust as needed */
+    margin-bottom: 5px; /* Add margin between image and boxes */
+}
+.logo-container img {
+    width: 1400px; /* Adjust the size as needed */
+    height: auto;
+}
+
+
+main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    
+    height: 60vh;
+
 }
 
-/* Add padding and background color to the card */
+.box {
+    width: 400px;
+    height: 200px; /* Set a fixed height */
+    overflow: auto; /* Allow scrolling if content exceeds the box height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+}
+
+#ticketBox {
+    border: 2px solid #00d9ff;
+}
+
 .card {
     padding: 20px;
     background-color: #f8f9fa;
@@ -42,9 +85,37 @@
 }
 
 
+.container2 {
+    margin-top: 50px;
+ 
+}
+
+.detectLanguage {
+    color: blue;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+
+.subscriptionBoxes{
+    width: 300px;
+    height: 150px; /* Set a fixed height */
+    overflow: auto; /* Allow scrolling if content exceeds the box height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+
 .alert-error {
     color: #f5f5f5;
-    background-color: #fff705;
+    background-color: #f11a1a;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -55,7 +126,7 @@
 }
 .alert-success {
     color: #f5f5f5;
-    background-color: #00ff3c;
+    background-color: #1e81b0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -67,7 +138,7 @@
 
 .alert-info{
     color: #f5f5f5;
-    background-color: #2998e2;
+    background-color: #1e81b0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -76,3 +147,4 @@
     padding: 10px;
     transform: translateX(-50%);
 }
+

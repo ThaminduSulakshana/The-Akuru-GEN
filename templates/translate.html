@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <title>English to French Translation</title>
+    <title>The Akuru GEN</title>
 </head>
 <body>
     <nav>
@@ -18,45 +18,41 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    <div class="container">
-        <div style="text-align: center; margin-top: 50px;">
-            <h1>Simple Translator</h1>
-            <form method="POST" action="/translate" onsubmit="return detectLanguage()">
-                <label for="input_text">Enter text to translate:</label><br>
-                <textarea id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea><br><br>
-                
-                <div class="detectLanguage" id="detected_language" style="font-style: italic;"></div><br>
 
-                <label for="target_language">Select target language:</label>
-                <select id="target_language" name="target_language" required>
-                    {% for language in languages %}
-                        <option value="{{ language.code }}">{{ language.name }}</option>
-                    {% endfor %}
-                </select><br><br>
-                
-                <input type="submit" value="Translate">
-            </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Break Language Boundaries with Akuru GEN</h1>
+                <form method="POST" action="/translate" onsubmit="return detectLanguage()">
+                    <div class="mb-3">
+                        <label for="input_text" class="form-label">Enter text to translate:</label>
+                        <textarea class="form-control" id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="detectLanguage" id="detected_language" style="font-style: italic;"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Translate</button>
+                </form>
 
-        
-            {% if input_text %}
-                <h3>Original Text:</h3>
-                <p>{{ input_text }}</p>
-                
-                <h3>Translated Text:</h3>
-                <p>{{ translated_text }}</p>
-                
-                {% if audio_filename %}
-                    <audio controls>
-                        <source src="{{ audio_filename }}" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    </audio>
+                {% if input_text %}
+                    <h3 class="mt-5">Original Text:</h3>
+                    <p>{{ input_text }}</p>
+                    
+                    <h3>Translated Text:</h3>
+                    <p>{{ translated_text }}</p>
+                    
+                    {% if audio_filename %}
+                        <audio controls>
+                            <source src="{{ audio_filename }}" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% endif %}
                 {% endif %}
-                
-                <!-- {% if detected_language %}
-                    <p>Detected Language: {{ detected_language }}</p>
-                {% endif %} -->
-            {% endif %}
+            </div>
         </div>
     </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
