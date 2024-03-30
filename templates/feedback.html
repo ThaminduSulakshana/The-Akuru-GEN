@@ -26,7 +26,7 @@
                 <label for="feedback">Feedback:</label>
                 <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Add Feedback</button>
+            <button type="submit" class="btn btn-primary mb-3">Add Feedback</button>
         </form>
     </div>
 
@@ -38,7 +38,7 @@
                 <label for="new_feedback">Update Feedback:</label>
                 <textarea class="form-control" id="new_feedback" name="new_feedback" rows="4" required>{{ feedback }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary mr-2">Update Feedback</button>
+            <button type="submit" class="btn btn-primary mr-3">Update Feedback</button>
             <button type="submit" formaction="{{ url_for('delete_feedback', feedback_index=index) }}" class="btn btn-danger">Delete Feedback</button>
         </form>
         {% endfor %}
