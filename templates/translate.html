@@ -6,11 +6,15 @@
     <title>අකුරු GEN</title>
     <link rel="icon" type="image/x-icon" href="/static/img/title.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='translate.css') }}">
+    <script src="{{ url_for('static', filename='js/listener.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
 </head>
 <body>
     <nav>
@@ -21,33 +25,59 @@
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
 
-    <div class="container mt-5">
+    <!-- Main Content -->
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1 class="text-center mb-4">Break Language Boundaries with Akuru GEN</h1>
+                <!-- Form for Text Translation -->
                 <form method="POST" action="/translate" onsubmit="return detectLanguage()">
                     <div class="mb-3">
-                        <label for="input_text" class="form-label">Enter text to translate:</label>
-                        <textarea class="form-control" id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" required></textarea>
+                        <textarea class="form-control" id="input_text" name="input_text" rows="4" cols="50" oninput="detectLanguage()" placeholder="Type or paste the text you want to translate..." required></textarea>
                     </div>
                     <div class="mb-3">
                         <div class="detectLanguage" id="detected_language" style="font-style: italic;"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Translate</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-language me-2"></i> Translate</button>
                 </form>
 
+                <!-- Display Original and Translated Text -->
                 {% if input_text %}
-                    <h3 class="mt-5">Original Text:</h3>
-                    <p>{{ input_text }}</p>
-                    
-                    <h3>Translated Text:</h3>
-                    <p>{{ translated_text }}</p>
-                    
+                    <div class="mt-5 border p-3">
+                        <h3 class="mb-3">Original Text:</h3>
+                        <p>{{ input_text }}</p>
+                    </div>
+                    <div class="mt-4 border p-3">
+                        <h3 class="mb-3">Translated Text:</h3>
+                        <p>{{ translated_text }}</p>
+                    </div>
+                    <!-- Audio Translation Section -->
                     {% if audio_filename %}
-                        <audio controls>
-                            <source src="{{ audio_filename }}" type="audio/mp3">
-                            Your browser does not support the audio element.
-                        </audio>
+                    <div class="mt-4">
+                        <h3 class="mb-3">Audio Translation:</h3>
+                        <div class="audio-player">
+                            <!-- Audio Element -->
+                            <audio id="audio" controls class="audio">
+                                <source src="{{ audio_filename }}" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <!-- Progress Bar Container -->
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                            <!-- Time Display -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="time-display">
+                                    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+                                </div>
+                                <!-- Audio Controls -->
+                                <div class="audio-controls">
+                                    <button id="play-button" class="btn btn-primary"><i class="fas fa-play"></i></button>
+                                    <button id="pause-button" class="btn btn-primary"><i class="fas fa-pause"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 {% endif %}
             </div>
@@ -56,5 +86,6 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 </html>
