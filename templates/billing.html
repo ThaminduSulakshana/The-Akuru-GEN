@@ -26,11 +26,11 @@
             </div>
             <div class="form-group">
                 <label for="card_nickname">Card Name:</label>
-                <input type="text" class="form-control" id="card_nickname" name="card_nickname" required>
+                <input type="text"  class="form-control" id="card_nickname" name="card_nickname" required>
             </div>
             <div class="form-group">
                 <label for="card_number">Card Number:</label>
-                <input type="text" class="form-control" id="card_number" name="card_number" required>
+                <input type="text" maxlength="16" class="form-control" id="card_number" name="card_number" required>
             </div>
             <div class="form-group">
                 <label for="expiry_date">Expiry Date:</label>
@@ -38,11 +38,57 @@
             </div>
             <div class="form-group">
                 <label for="cvv">CVV:</label>
-                <input type="text" class="form-control" id="cvv" name="cvv" required>
+                <input type="text" maxlength="3" class="form-control" id="cvv" name="cvv" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Address</button>
         </form>
-        
+
+        <script>
+                 // Function to validate the card number
+            function validateCardNumber(cardNumber) {
+                  // Check if the card number contains only numbers and is of the correct length
+                if (/^\d{16}$/.test(cardNumber)) {
+                 // Implement Luhn algorithm check here if needed
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+                  // Function to validate the expiry date
+            function validateExpiryDate(expiryDate) {
+                 // Check if the expiry date is in the format "MM/YYYY"
+                if (/^(0[1-9]|1[0-2])\/\d{4}$/.test(expiryDate)) {
+                    // Split the expiry date into month and year
+                    const [month, year] = expiryDate.split('/');
+                   // Check if the month is between 1 and 12 and the year is in the future
+                    const currentYear = new Date().getFullYear() % 100; // Get last two digits of the current year
+                    if (parseInt(year) > currentYear || (parseInt(year) === currentYear && parseInt(month) >= new Date().getMonth() + 1)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+// Add event listeners to validate the card number and expiry date on form submission
+            document.querySelector('form').addEventListener('submit', function(event) {
+                const cardNumber = document.getElementById('card_number').value;
+                const expiryDate = document.getElementById('expiry_date').value;
+
+                if (!validateCardNumber(cardNumber)) {
+                    alert('Please enter a valid 16-digit card number.');
+                    event.preventDefault();
+                }
+
+                if (!validateExpiryDate(expiryDate)) {
+                    alert('Please enter a valid expiry date in the format MM/YYYY.');
+                    event.preventDefault();
+                }
+            });
+
+        </script>
+
+
         <div>
         <h2>Your Current Billing Addresses:</h2>
         {% for index, billing_address in billing_addresses_enum %}
