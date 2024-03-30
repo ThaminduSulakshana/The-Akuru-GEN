@@ -55,7 +55,7 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.btn {
+/* .btn {
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
@@ -84,9 +84,9 @@ body {
   background-color: #bd2130;
   border-color: #bd2130;
   color: #fff;
-}
+} */
 
-.alert {
+/* .alert {
   margin-top: 20px;
   padding: 10px;
   border-radius: 5px;
@@ -100,4 +100,4 @@ body {
 .alert-danger {
   background-color: #dc3545;
   color: #fff;
-}
+} */

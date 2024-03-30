@@ -85,10 +85,11 @@ main {
 }
 
 
-.container2 {
-    margin-top: 50px;
+.container {
+    margin-top: 120px;
  
 }
+
 
 .detectLanguage {
     color: blue;
@@ -146,5 +147,26 @@ main {
     left:  50%;
     padding: 10px;
     transform: translateX(-50%);
+}
+
+.custom-alert.alert-success {
+    background-color: #1e81b0;
+    color: #f5f5f5;
+    background-color: #1e81b0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 10%;
+    left:  50%;
+    padding: 10px;
+    transform: translateX(-50%);
+}
+
+/*Feedback*/
+.feedback-container {
+    margin-top: 40px;
+}
+.feedback-container form {
+    margin-bottom: 20px;
 }
 
