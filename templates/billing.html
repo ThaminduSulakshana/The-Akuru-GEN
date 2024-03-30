@@ -3,6 +3,7 @@
 <head>
     <title>අකුරු GEN</title>
     <link rel="icon" type="image/x-icon" href="/static/img/title.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='bill.css') }}">
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -39,7 +40,7 @@
                 <label for="cvv">CVV:</label>
                 <input type="text" class="form-control" id="cvv" name="cvv" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Address</button>
+            <button type="submit" class="btn btn-primary mb-3">Add Address</button>
         </form>
         
         <div>
@@ -66,10 +67,10 @@
                     <label for="new_cvv{{ index }}">CVV:</label>
                     <input type="text" class="form-control" id="new_cvv{{ index }}" name="new_cvv{{ index }}" value="{{ billing_address.cvv }}" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary mb-3">Update Address</button>
             </form>
             <form action="{{ url_for('delete_billing', billing_index=index) }}" method="post" style="display: inline;">
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete Address</button>
             </form>
         {% endfor %}
     </div>
