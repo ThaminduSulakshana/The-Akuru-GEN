@@ -18,17 +18,29 @@ nav a {
     padding: 10px;
     margin: 0 10px;
 }
+ /* Add any additional custom styles here */
+ .logo-container {
+    text-align: center;
+    margin-top: 70px; /* Adjust as needed */
+    margin-bottom: 5px; /* Add margin between image and boxes */
+}
+.logo-container img {
+    width: 1400px; /* Adjust the size as needed */
+    height: auto;
+}
+
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 60vh;
+
 }
 
 .box {
-    width: 300px;
-    height: 150px; /* Set a fixed height */
+    width: 400px;
+    height: 200px; /* Set a fixed height */
     overflow: auto; /* Allow scrolling if content exceeds the box height */
     padding: 20px;
     background-color: #fff;
