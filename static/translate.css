@@ -1,0 +1,29 @@
+/* Hide default audio controls */
+audio {
+    display: none;
+}
+.audio-player {
+    width: 100%;
+    max-width: 500px; /* Adjust max-width as needed */
+    margin-top: 20px;
+}
+.audio-player audio {
+    width: 100%;
+}
+.progress-container {
+    background-color: #eee;
+    border-radius: 5px;
+    height: 5px;
+    width: 100%;
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+.progress-bar {
+    background-color: #007bff;
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+}
+.time-display {
+    margin-bottom: 10px; /* Adjust margin as needed */
+    font-size: 0.8rem;
+}
