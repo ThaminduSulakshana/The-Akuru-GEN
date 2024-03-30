@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='Qanswering.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap#.css') }}">
     <title>Question-answering-PyTorch</title>
 </head>
 <body>
@@ -16,8 +17,13 @@
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
     <div class="container">
-        <h1>Question-answering-PyTorch</h1>
         
+          <h1>Question - Answering</h1>
+          
+             <p class="para">" Introducing our personalized question answering page! Input your paragraph, and we'll deliver customized responses based on your text. No matter the subject or complexity, we're here to provide tailored answers just for you. Your words guide the discussion, so share your thoughts, and let's unravel the answers together! "</p>
+       
+        <br>
+
         <form id="qaForm" action="/answer" method="post" onsubmit="return validateForm()">
             <label for="context">Context:</label>
             <textarea id="context" name="context" rows="4" cols="50" placeholder="Enter context here..." required></textarea><br>
@@ -59,5 +65,13 @@
         {% endif %}
     </div>
     </div>
+
+    <footer>
+        <div class="footer">
+            <p>&copy; 2024 Akuru Genaration <br> All rights reserved.</p>
+        </div>
+    </footer>
+
+    
 </body>
 </html>
