@@ -41,7 +41,16 @@ def feedback_routes(app):
             if user_data:
                 feedback = user_data.get('feedback', [])
                 feedback_enum = list(enumerate(feedback))
-        return render_template('feedback.html', feedback_enum=feedback_enum)
+            
+            # Fetching feedback and usernames from all users
+            all_feedback_data = col.find({}, {'username': 1, 'feedback': 1})
+            all_feedback = []
+            for data in all_feedback_data:
+                for fb in data.get('feedback', []):
+                    all_feedback.append({'username': data['username'], 'feedback': fb})
+                
+        return render_template('feedback.html', feedback_enum=feedback_enum, all_feedback=all_feedback)
+
 
     @app.route('/update_feedback/<int:feedback_index>', methods=['POST'])
     @login_required

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <title>අකුරු GEN</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/title.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='feedback.css') }}">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <title>Add feeedback</title>
+
 </head>
 <body>
-<nav>
+    <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('welcome') }}">Profile</a>
         <a href="{{ url_for('subscribe') }}">Pricing</a>
@@ -18,40 +18,52 @@
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
 
-    <div class="background"></div>
-
-    <div class="container2">
-        <h1>Add feedback</h1>
+<div class="container">
+    <div class="feedback-container">
+        <h1>Add Feedback</h1>
         <form action="{{ url_for('add_feedback') }}" method="post">
             <div class="form-group">
-                <label for="feedback">FEEDBACK:</label>
-                <textarea class="form-control" id="feedback" name="feedback" rows="7" required></textarea>
+                <label for="feedback">Feedback:</label>
+                <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Add Feedback</button>
         </form>
+    </div>
 
-        <h2>Your feedback:</h2>
+    <div class="feedback-container">
+        <h2>Your Feedback:</h2>
         {% for index, feedback in feedback_enum %}
         <form action="{{ url_for('update_feedback', feedback_index=index) }}" method="post">
             <div class="form-group">
-                <label for="new_feedback">Update feedback:</label>
+                <label for="new_feedback">Update Feedback:</label>
                 <textarea class="form-control" id="new_feedback" name="new_feedback" rows="4" required>{{ feedback }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Update Feedback</button>
-        </form>
-        <form action="{{ url_for('delete_feedback', feedback_index=index) }}" method="post" style="display: inline;">
-            <button type="submit" class="btn btn-danger">Delete Feedback</button>
+            <button type="submit" class="btn btn-primary mr-2">Update Feedback</button>
+            <button type="submit" formaction="{{ url_for('delete_feedback', feedback_index=index) }}" class="btn btn-danger">Delete Feedback</button>
         </form>
         {% endfor %}
     </div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <br>
+    <div class="feedback-container">
+        <h2>Other Users' Feedback:</h2>
+        <!-- Loop through feedback from other users -->
+        {% for feedback_item in all_feedback %}
+        <div class="mb-3">
+            <!-- Display username -->
+            <strong>{{ feedback_item.username }}:</strong> {{ feedback_item.feedback }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 </body>
 </html>
