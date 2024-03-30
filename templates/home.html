@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>the akuru Website</title>
@@ -14,7 +14,11 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    
+        <div class="logo-container">
+            <img src="static/img/main.png" alt="Logo Image">
+        </div>
+        <p class="lead text-center">The Akuru GEN is a rule-based translation system that enables seamless Sinhala-English communication.</p>
+
     <main>
         <div class="box" id="ticketBox" onclick="redirectTotranslate()">
             <h2>Translate</h2>

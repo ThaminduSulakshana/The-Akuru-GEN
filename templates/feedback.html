@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='feedback.css') }}">
+
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <title>Add feeedback</title>
@@ -16,14 +18,16 @@
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
 
+    <div class="background"></div>
+
     <div class="container2">
         <h1>Add feedback</h1>
         <form action="{{ url_for('add_feedback') }}" method="post">
             <div class="form-group">
-                <label for="feedback">feedback:</label>
-                <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
+                <label for="feedback">FEEDBACK:</label>
+                <textarea class="form-control" id="feedback" name="feedback" rows="7" required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Add Address</button>
+            <button type="submit" class="btn btn-primary">Add Feedback</button>
         </form>
 
         <h2>Your feedback:</h2>
@@ -33,10 +37,10 @@
                 <label for="new_feedback">Update feedback:</label>
                 <textarea class="form-control" id="new_feedback" name="new_feedback" rows="4" required>{{ feedback }}</textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Update feedback</button>
+            <button type="submit" class="btn btn-primary">Update Feedback</button>
         </form>
         <form action="{{ url_for('delete_feedback', feedback_index=index) }}" method="post" style="display: inline;">
-            <button type="submit" class="btn btn-danger">Delete feedback</button>
+            <button type="submit" class="btn btn-danger">Delete Feedback</button>
         </form>
         {% endfor %}
     </div>
