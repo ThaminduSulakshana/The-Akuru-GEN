@@ -62,7 +62,7 @@ def feedback_routes(app):
         current_user = session['username']
         # Updating the specified feedback for the user in the database
         col.update_one({'username': current_user}, {'$set': {'feedback.' + str(feedback_index): new_feedback}})
-        flash('Feedback updated successfully.', 'success')
+        flash('Feedback updated successfully', 'success')
         return redirect(url_for('add_feedback'))
 
     @app.route('/delete_feedback/<int:feedback_index>', methods=['POST'])

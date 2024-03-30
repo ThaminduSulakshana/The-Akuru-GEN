@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>අකුරු GEN</title>
-    <link rel="icon" type="image/x-icon" href="/static/img/title.png">
+    <link rel="icon" type="image/x-icon" href="/static/img/titlelogo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="profile.css">
@@ -16,43 +16,63 @@
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
-    <div class="container2">
-        <h1 class="mt-4">Welcome, {{ username }}!</h1>
-        <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid mb-4">
-        
-        <form action="{{ url_for('update_profile') }}" method="post" class="mb-3">
-            <label for="new_username">Update Username:</label>
-            <input type="text" id="new_username" name="new_username" required>
-            <input type="submit" value="Update">
-        </form>
+    <div class="container">
+        <div class="text-center">
+            <h1>Welcome, {{ username }}!</h1>
+            <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid rounded-circle mt-4 mb-4">
+        </div>
 
-        <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="mb-3">
-            <input type="submit" value="Delete Account" class="btn btn-danger">
-        </form>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <form action="{{ url_for('update_profile') }}" method="post">
+                    <div class="form-group">
+                        <label for="new_username">Update Username:</label>
+                        <input type="text" id="new_username" name="new_username" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Update Username</button>
+                </form>
 
-        {% if 'username' in session %}
-        <form action="{{ url_for('logout') }}" method="get" class="mb-3">
-            <input type="submit" value="Logout" class="btn btn-secondary">
-        </form>
-        {% endif %}
-    </div>
-    
-    <form action="{{ url_for('add_billing') }}" method="GET">
-        <button type="submit" class="btn btn-primary mb-3">Add Billing Address</button>
-    </form>
+                <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="mt-3">
+                    <button type="submit" class="btn btn-danger btn-block">Delete Account</button>
+                </form>
 
-    <form action="{{ url_for('add_feedback') }}" method="GET">
-        <button type="submit" class="btn btn-primary mb-3">Add Feedback</button>
-    </form>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }}" role="alert">
-                {{ message }}
+                {% if 'username' in session %}
+                <form action="{{ url_for('logout') }}" method="get" class="mt-3">
+                    <button type="submit" class="btn btn-secondary btn-block">Logout</button>
+                </form>
+                {% endif %}
             </div>
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <form action="{{ url_for('add_billing') }}" method="GET">
+                    <button type="submit" class="btn btn-primary btn-block">Add Billing Address</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6 offset-md-3">
+                <form action="{{ url_for('add_feedback') }}" method="GET">
+                    <button type="submit" class="btn btn-primary btn-block">Add Feedback</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>
