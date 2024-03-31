@@ -51,6 +51,12 @@
 
         <h1 class="mb-4"><i class="fas fa-user-circle mr-2"></i>Welcome, {{ username }}!</h1>
         <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid mb-4">
+
+        {% if session.subscription_level %}
+            <p class="lead">You are currently subscribed to the {{ session.subscription_level.capitalize() }} package.</p>
+        {% else %}
+            <p class="lead">You have not selected a subscription package yet.</p>
+        {% endif %}
         
         <div class="row mb-3">
             <div class="col-md-12">
