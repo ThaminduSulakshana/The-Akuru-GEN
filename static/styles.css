@@ -17,6 +17,19 @@ nav a {
     text-decoration: none;
     padding: 10px;
     margin: 0 10px;
+    font-size: medium;
+}
+
+.navbar {
+    min-height: 20px; /* Adjust this value as needed */
+}
+.navbar-custom {
+background-color: #1b3c76; /* Dark blue color */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    line-height: 50px; /* Adjust this value to vertically center the text */
 }
  /* Add any additional custom styles here */
  .logo-container {
