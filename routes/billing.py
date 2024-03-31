@@ -5,6 +5,7 @@ import uuid
 from functools import wraps
 import config
 import certifi
+import re
 
 # Connecting to MongoDB database
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
@@ -22,6 +23,21 @@ def billing_routes(app):
             return f(*args, **kwargs)
         return decorated_function
 
+        # Function to validate card number
+    def validate_card_number(card_number):
+        # Card number should only contain digits and be of length 16
+        return bool(re.match(r'^\d{16}$', card_number))
+
+    # Function to validate expiry date
+    def validate_expiry_date(expiry_date):
+        # Expiry date should be in the format MM/YY and MM should be in range 01-12 and YY should be in range 00-99
+        return bool(re.match(r'^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9])$', expiry_date))
+
+    # Function to validate CVV
+    def validate_cvv(cvv):
+        # CVV should only contain 3 digits
+        return bool(re.match(r'^\d{3}$', cvv))
+
     @app.route('/add_billing', methods=['GET', 'POST'])
     @login_required
     def add_billing():
@@ -35,6 +51,22 @@ def billing_routes(app):
             expiry_date = request.form['expiry_date']
             cvv = request.form['cvv']
             current_user = session['username']
+
+            # Validate card number
+            if not validate_card_number(card_number):
+                flash('Invalid card number. Please enter a 16-digit number.', 'error')
+                return redirect(url_for('add_billing'))
+
+            # Validate expiry date
+            if not validate_expiry_date(expiry_date):
+                flash('Invalid expiry date. Please enter a date in the format MM/YY.', 'error')
+                return redirect(url_for('add_billing'))
+
+            # Validate CVV
+            if not validate_cvv(cvv):
+                flash('Invalid CVV. Please enter a 3-digit number.', 'error')
+                return redirect(url_for('add_billing'))
+
             # Updating user's billing addresses in the database
             col.update_one(
                 {'username': current_user},
@@ -59,7 +91,7 @@ def billing_routes(app):
                 billing_addresses = user_data.get('billing_addresses', [])
                 billing_addresses_enum = list(enumerate(billing_addresses))
         return render_template('billing.html', billing_addresses_enum=billing_addresses_enum)
-
+    
     @app.route('/update_billing/<int:billing_index>', methods=['POST'])
     @login_required
     def update_billing(billing_index):
@@ -72,6 +104,22 @@ def billing_routes(app):
         new_expiry_date = request.form['new_expiry_date' + str(billing_index)]
         new_cvv = request.form['new_cvv' + str(billing_index)]
         current_user = session['username']
+
+        # Validate card number
+        if not validate_card_number(new_card_number):
+            flash('Invalid card number. Please enter a 16-digit number.', 'error')
+            return redirect(url_for('add_billing'))
+
+        # Validate expiry date
+        if not validate_expiry_date(new_expiry_date):
+            flash('Invalid expiry date. Please enter a date in the format MM/YY.', 'error')
+            return redirect(url_for('add_billing'))
+
+        # Validate CVV
+        if not validate_cvv(new_cvv):
+            flash('Invalid CVV. Please enter a 3-digit number.', 'error')
+            return redirect(url_for('add_billing'))
+
         # Updating the specified billing address for the user in the database
         col.update_one(
             {'username': current_user, 'billing_addresses.' + str(billing_index): {'$exists': True}},
@@ -87,6 +135,7 @@ def billing_routes(app):
         )
         flash('Billing address updated successfully.', 'success')
         return redirect(url_for('add_billing'))
+
 
     @app.route('/delete_billing/<int:billing_index>', methods=['POST'])
     @login_required

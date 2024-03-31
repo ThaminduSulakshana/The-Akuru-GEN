@@ -4,75 +4,94 @@
     <title>අකුරු GEN</title>
     <link rel="icon" type="image/x-icon" href="/static/img/titlelogo.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="profile.css">
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('welcome') }}">Profile</a>
-        <a href="{{ url_for('subscribe') }}">Pricing</a>
-        <a href="{{ url_for('login') }}">LogIn</a>
-        <a href="{{ url_for('register') }}">SignUp</a>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <a class="navbar-brand" href="{{ url_for('home') }}">අකුරු GEN</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ url_for('welcome') }}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ url_for('subscribe') }}">Pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ url_for('login') }}">LogIn</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" href="{{ url_for('register') }}">SignUp</a>
+            </li>
+        </ul>
     </nav>
+    
+    
     <div class="container">
-        <div class="text-center">
-            <h1>Welcome, {{ username }}!</h1>
-            <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid rounded-circle mt-4 mb-4">
+        <div class="flex-end">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <form action="{{ url_for('add_billing') }}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-file-invoice mr-2"></i>Billing Address</button>
+                    </form>
+                    {% if 'username' in session %}
+                    <form action="{{ url_for('logout') }}" method="get" class="d-inline">
+                        <button type="submit" class="btn btn-secondary btn-with-icon"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
+        <h1 class="mb-4"><i class="fas fa-user-circle mr-2"></i>Welcome, {{ username }}!</h1>
+        <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid mb-4">
+        
+        <div class="row mb-3">
+            <div class="col-md-12">
                 <form action="{{ url_for('update_profile') }}" method="post">
                     <div class="form-group">
-                        <label for="new_username">Update Username:</label>
-                        <input type="text" id="new_username" name="new_username" class="form-control" required>
+                        <label for="new_username"><i class="fas fa-edit mr-2"></i>Update Username:</label>
+                        <input type="text" id="new_username" name="new_username" required class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Update Username</button>
-                </form>
-
-                <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="mt-3">
-                    <button type="submit" class="btn btn-danger btn-block">Delete Account</button>
-                </form>
-
-                {% if 'username' in session %}
-                <form action="{{ url_for('logout') }}" method="get" class="mt-3">
-                    <button type="submit" class="btn btn-secondary btn-block">Logout</button>
-                </form>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-6 offset-md-3">
-                <form action="{{ url_for('add_billing') }}" method="GET">
-                    <button type="submit" class="btn btn-primary btn-block">Add Billing Address</button>
+                    <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-save"></i>Update</button>
                 </form>
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-md-6 offset-md-3">
+        <div class="text-left">
+            <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                <button type="submit" class="btn btn-danger btn-with-icon"><i class="fas fa-trash-alt"></i>Delete Account</button>
+            </form>
+        </div>
+        
+    </div>
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
                 <form action="{{ url_for('add_feedback') }}" method="GET">
-                    <button type="submit" class="btn btn-primary btn-block">Add Feedback</button>
+                    <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-comment mr-2"></i>User's Feedback</button>
                 </form>
             </div>
         </div>
-
-        <div class="row mt-5">
-            <div class="col-md-6 offset-md-3">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
+    </div>
+    
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
                 <div class="alert alert-{{ category }}" role="alert">
                     {{ message }}
                 </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </div>
-        </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>
