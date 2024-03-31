@@ -4,46 +4,67 @@
     <title>අකුරු GEN</title>
     <link rel="icon" type="image/x-icon" href="/static/img/title.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='bill.css') }}">
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/validate.js') }}"></script>
 </head>
 <body>
-<nav>
+    <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('welcome') }}">Profile</a>
         <a href="{{ url_for('subscribe') }}">Pricing</a>
         <a href="{{ url_for('login') }}">LogIn</a>
         <a href="{{ url_for('register') }}">SignUp</a>
     </nav>
+
     <div class="container">
-        <h1>Add Billing Address</h1>
-        <form action="{{ url_for('add_billing') }}" method="post">
-            <div class="form-group">
-                <label for="billing_address">Billing Address:</label>
-                <textarea class="form-control" id="billing_address" name="billing_address" rows="4" required></textarea>
+    <h1>Add Billing Address</h1>
+    <form action="{{ url_for('add_billing') }}" method="post">
+        <div class="form-group">
+            <label for="billing_address">Billing Address:</label>
+            <textarea class="form-control" id="billing_address" name="billing_address" rows="4" placeholder="123 Main Street, Apt 101, Cityville, State, Country, Postal Code: XXXXX" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="card_nickname">Card Name</label>
+            <input type="text" class="form-control" id="card_nickname" name="card_nickname" placeholder="Enter a nickname for your card" required>
+        </div>
+        <div class="form-group">
+            <label for="card_number">Card Number</label>
+            <div class="input-group position-relative">
+                <input type="text" class="form-control" id="card_number" name="card_number" placeholder="4135-XXXX-XXXX-XXXX" required>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i id="card-icon"></i></span>
+                </div>
+                <div class="invalid-feedback" id="card-number-feedback"></div>
             </div>
-            <div class="form-group">
-                <label for="card_nickname">Card Name:</label>
-                <input type="text" class="form-control" id="card_nickname" name="card_nickname" required>
+        </div>
+        <div class="form-group">
+            <label for="expiry_date">Expiry Date</label>
+            <div class="input-group position-relative">
+                <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check-circle text-success d-none"></i></span>
+                </div>
+                <div class="invalid-feedback" id="expiry-date-feedback"></div>
             </div>
-            <div class="form-group">
-                <label for="card_number">Card Number:</label>
-                <input type="text" class="form-control" id="card_number" name="card_number" required>
+        </div>
+        <div class="form-group">
+            <label for="cvv">CSV</label>
+            <div class="input-group position-relative">
+                <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Card Security Code" required>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check-circle text-success d-none"></i></span>
+                </div>
+                <div class="invalid-feedback" id="cvv-feedback"></div>
             </div>
-            <div class="form-group">
-                <label for="expiry_date">Expiry Date:</label>
-                <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM/YYYY" required>
-            </div>
-            <div class="form-group">
-                <label for="cvv">CSV:</label>
-                <input type="text" class="form-control" id="cvv" name="cvv" required>
-            </div>
-            <button type="submit" class="btn btn-primary mb-3">Add Address</button>
-        </form>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Add Address</button>
+    </form>
         
-        <div>
+    <div>
         <h2>Your Current Billing Addresses:</h2>
         {% for index, billing_address in billing_addresses_enum %}
             <form action="{{ url_for('update_billing', billing_index=index) }}" method="post">
@@ -61,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label for="new_expiry_date{{ index }}">Expiry Date:</label>
-                    <input type="text" class="form-control" id="new_expiry_date{{ index }}" name="new_expiry_date{{ index }}" value="{{ billing_address.expiry_date }}" placeholder="MM/YYYY" required>
+                    <input type="text" class="form-control" id="new_expiry_date{{ index }}" name="new_expiry_date{{ index }}" value="{{ billing_address.expiry_date }}" placeholder="MM/YY" required>
                 </div>
                 <div class="form-group">
                     <label for="new_cvv{{ index }}">CVV:</label>
@@ -74,15 +95,16 @@
             </form>
         {% endfor %}
     </div>
-    </div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 </body>
 </html>
