@@ -3,14 +3,13 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    min-height: 120vh;
     background-image: url('/static/img/main.png'), url('/static/img/akurukotu2.jpg'),url('/static/img/kotuakuru3.jpg');
     
-    background-size: 45%, 10%, 125% auto;
+    background-size: 75%, 20%, 125% auto;
     background-repeat: no-repeat ,repeat-x  ;
-    background-position: center top,bottom; 
+    background-position: center top, center bottom, center bottom; 
 }
-
 .container {
     max-width: 800px;
     margin: 50px auto;
