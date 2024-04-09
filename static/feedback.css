@@ -1,103 +1,103 @@
 body {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-  }
-  
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-
-  .background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('image.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.5;
-    z-index: -1;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
 }
-  
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('image.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
 
 
-  .container2 {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #b2c3ca;
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  margin-top: 70px;
+
+.container2 {
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+background-color: #b2c3ca;
+border: 1px solid #dddddd;
+border-radius: 5px;
+margin-top: 70px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+margin-bottom: 20px;
 }
 
 .form-control {
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  padding: 5px;
+width: 100%;
+border-radius: 5px;
+border: 1px solid #ced4da;
+padding: 5px;
 }
 
 .form-control:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+border-color: #80bdff;
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.btn {
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 500;
+/* .btn {
+border-radius: 5px;
+padding: 10px 20px;
+font-size: 16px;
+font-weight: 500;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
+background-color: #007bff;
+color: #fff;
+border-color: #007bff;
 }
 
 .btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-  color: #fff;
+background-color: #0069d9;
+border-color: #0062cc;
+color: #fff;
 }
 
 .btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: #fff;
+background-color: #dc3545;
+border-color: #dc3545;
+color: #fff;
 }
 
 .btn-danger:hover {
-  background-color: #bd2130;
-  border-color: #bd2130;
-  color: #fff;
-}
+background-color: #bd2130;
+border-color: #bd2130;
+color: #fff;
+} */
 
-.alert {
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
+/* .alert {
+margin-top: 20px;
+padding: 10px;
+border-radius: 5px;
 }
 
 .alert-success {
-  background-color: #28a745;
-  color: #fff;
+background-color: #28a745;
+color: #fff;
 }
 
 .alert-danger {
-  background-color: #dc3545;
-  color: #fff;
-}
+background-color: #dc3545;
+color: #fff;
+} */
