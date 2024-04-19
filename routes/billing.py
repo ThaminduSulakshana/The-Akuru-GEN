@@ -90,7 +90,7 @@ def billing_routes(app):
             if user_data:
                 billing_addresses = user_data.get('billing_addresses', [])
                 billing_addresses_enum = list(enumerate(billing_addresses))
-        return render_template('billing.html', billing_addresses_enum=billing_addresses_enum)
+        return render_template('billing.html', username=session['username'], billing_addresses_enum=billing_addresses_enum)
     
     @app.route('/update_billing/<int:billing_index>', methods=['POST'])
     @login_required
