@@ -1,97 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>අකුරු GEN</title>
-    <link rel="icon" type="image/x-icon" href="/static/img/titlelogo.png">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="profile.css">
-    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+  <title>අකුරු GEN</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/titlelogo.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='maicons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/animate/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='from.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <a class="navbar-brand" href="{{ url_for('home') }}">අකුරු GEN</a>
-        <ul class="navbar-nav ml-auto">
+  
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky" data-offset="500">
+      <div class="container">
+        <a href="{{ url_for('home') }}" class="navbar-brand"><span class="text-primary">අකුරු </span> GEN</a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarContent">
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('welcome') }}">Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url_for('welcome') }}">Profile</a>
+              <a class="nav-link" href="{{ url_for('subscribe') }}">Pricing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url_for('subscribe') }}">Pricing</a>
+              <a class="nav-link" href="{{ url_for('login') }}">LogIn</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url_for('login') }}">LogIn</a>
+              <a class="nav-link" href="#about">Contact</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ url_for('register') }}">SignUp</a>
-            </li>
-        </ul>
+          </ul>
+        </div>
+      </div>
     </nav>
     
-    
     <div class="container">
-        <div class="flex-end">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <form action="{{ url_for('add_billing') }}" method="GET" class="d-inline">
-                        <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-file-invoice mr-2"></i>Billing Address</button>
-                    </form>
-                    {% if 'username' in session %}
+      <div class="page-banner">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-md-6">
+            <nav aria-label="Breadcrumb">
+              <ul class="breadcrumb justify-content-center py-0 bg-transparent">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Profile</li>
+              </ul>
+            </nav>
+            <h1 class="text-center">Welcome {{ username }}.</h1>
+            <span class="text-center">
+              {% if 'username' in session %}
+                <p>You are registered as {{ username }}.</p>
+              {% else %}
+                <p>Welcome! Please sign up to create an account.</p>
+              {% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="page-section">
+    <div class="container">
+      <div class="text-center wow fadeInUp">
+  <main class="cd__main">
+    <!-- Start DEMO HTML (Use the following code into your project)-->
+    <div class="profile-page">
+      <div class="content">
+        <div class="content__cover">
+          <div class="content__avatar"></div>
+          <div class="content__bull">
+          </div>
+        </div>
+        <div class="content__actions">
+         
+          <a href="{{ url_for('add_billing') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                <path fill="currentColor" d="M423.724,370.759H17.655C7.904,370.759,0,362.855,0,353.103V88.276 c0-9.751,7.904-17.655,17.655-17.655h406.069c9.751,0,17.655,7.904,17.655,17.655v264.828 C441.379,362.855,433.475,370.759,423.724,370.759z"/> <g> <path style="fill:#FFC850;" d="M406.069,211.862c-68.255,0-123.586,55.331-123.586,123.586c0,12.279,1.852,24.115,5.186,35.31 h136.055c9.75,0,17.655-7.905,17.655-17.655V217.048C430.184,213.714,418.348,211.862,406.069,211.862z"/> <path style="fill:#FFC850;" d="M132.414,203.034H61.793c-4.875,0-8.828-3.953-8.828-8.828v-52.966c0-4.875,3.953-8.828,8.828-8.828 h70.621c4.875,0,8.828,3.953,8.828,8.828v52.966C141.241,199.082,137.289,203.034,132.414,203.034z"/> </g> <g> <path style="fill:#FFFFFF;" d="M123.586,275.862H52.966c-6.094,0-11.034-4.94-11.034-11.034c0-6.094,4.94-11.034,11.034-11.034 h70.621c6.094,0,11.034,4.94,11.034,11.034C134.621,270.922,129.681,275.862,123.586,275.862z"/> <path style="fill:#FFFFFF;" d="M335.448,328.828H52.966c-6.094,0-11.034-4.94-11.034-11.034c0-6.094,4.94-11.034,11.034-11.034 h282.483c6.094,0,11.034,4.94,11.034,11.034C346.483,323.887,341.543,328.828,335.448,328.828z"/> <path style="fill:#FFFFFF;" d="M229.517,275.862h-70.621c-6.094,0-11.034-4.94-11.034-11.034c0-6.094,4.94-11.034,11.034-11.034 h70.621c6.094,0,11.034,4.94,11.034,11.034C240.552,270.922,235.612,275.862,229.517,275.862z"/> </g> <path style="fill:#E1A546;" d="M114.759,158.897H97.103v-26.483H79.448v70.621h17.655v-26.483h17.655 c4.875,0,8.828-3.953,8.828-8.828S119.634,158.897,114.759,158.897z"/> <circle style="fill:#FF507D;" cx="295.724" cy="163.31" r="39.724"/> <circle style="fill:#FFC850;" cx="348.69" cy="163.31" r="39.724"/> <path style="fill:#FF8C66;" d="M308.966,163.31c0,11.719,5.17,22.144,13.241,29.415c8.072-7.271,13.241-17.696,13.241-29.415 s-5.17-22.144-13.241-29.415C314.135,141.166,308.966,151.592,308.966,163.31z"/> <path style="fill:#FFFFFF;" d="M335.448,275.862h-70.621c-6.094,0-11.034-4.94-11.034-11.034c0-6.094,4.94-11.034,11.034-11.034 h70.621c6.094,0,11.034,4.94,11.034,11.034C346.483,270.922,341.543,275.862,335.448,275.862z"/> <g> <path style="fill:#E4EAF8;" d="M297.811,275.862h37.638c6.094,0,11.034-4.94,11.034-11.034c0-6.094-4.94-11.034-11.034-11.034 H313.47C307.502,260.554,302.198,267.907,297.811,275.862z"/> <path style="fill:#E4EAF8;" d="M282.817,328.828h52.631c6.094,0,11.034-4.94,11.034-11.034c0-6.094-4.94-11.034-11.034-11.034 h-49.482C284.266,313.897,283.219,321.268,282.817,328.828z"/> </g> <circle style="fill:#B4E66E;" cx="406.069" cy="335.448" r="105.931"/> <path style="fill:#A0D755;" d="M459.034,420.193c-58.504,0-105.931-47.427-105.931-105.931c0-34.347,16.419-64.785,41.757-84.14 c-53.231,5.601-94.722,50.61-94.722,105.326c0,58.504,47.427,105.931,105.931,105.931c24.158,0,46.353-8.178,64.174-21.791 C466.558,419.977,462.822,420.193,459.034,420.193z"/> <path style="fill:#FFFFFF;" d="M388.414,390.621c-2.828,0-5.646-1.078-7.801-3.233l-44.138-44.138c-4.31-4.31-4.31-11.293,0-15.604 c4.31-4.311,11.293-4.31,15.604,0l36.337,36.337l71.647-71.647c4.31-4.31,11.293-4.31,15.604,0c4.311,4.31,4.31,11.293,0,15.604 l-79.448,79.448C394.06,389.543,391.242,390.621,388.414,390.621z"/></path>
+            </svg>
+            <span>Payment Address</span>
+          </a>
+          <a href="{{ url_for('add_feedback') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path fill="currentColor" d="M208 352c-41 0-79.1-9.3-111.3-25-21.8 12.7-52.1 25-88.7 25a7.83 7.83 0 0 1-7.3-4.8 8 8 0 0 1 1.5-8.7c.3-.3 22.4-24.3 35.8-54.5-23.9-26.1-38-57.7-38-92C0 103.6 93.1 32 208 32s208 71.6 208 160-93.1 160-208 160z"></path>
+                <path fill="currentColor" d="M576 320c0 34.3-14.1 66-38 92 13.4 30.3 35.5 54.2 35.8 54.5a8 8 0 0 1 1.5 8.7 7.88 7.88 0 0 1-7.3 4.8c-36.6 0-66.9-12.3-88.7-25-32.2 15.8-70.3 25-111.3 25-86.2 0-160.2-40.4-191.7-97.9A299.82 299.82 0 0 0 208 384c132.3 0 240-86.1 240-192a148.61 148.61 0 0 0-1.3-20.1C522.5 195.8 576 253.1 576 320z"></path>
+            </svg>
+            <span>Feedback</span>
+          </a>
+        </div>
+        <div class="content__title">
+          <h1>{{ username }}</h1>
+          <span>{{ email }}</span>
+        </div>
+        <div class="content__description">
+                  {% if session.subscription_level %}
+            <p>You are currently subscribed to the {{ session.subscription_level.capitalize() }} package.</p>
+        {% else %}
+            <p>You have not selected a subscription package yet.</p>
+        {% endif %}</span>
+        </div>
+      
+        <div class="content__button">
+          {% if 'username' in session %}
                     <form action="{{ url_for('logout') }}" method="get" class="d-inline">
-                        <button type="submit" class="btn btn-secondary btn-with-icon"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+                        <button type="submit" class="btn btn-secondary btn-with-icon"><i class="fas fa-sign-out-alt mr-2"></i>LogOut</button>
                     </form>
                     {% endif %}
-                </div>
-            </div>
         </div>
+      </div>
+    </div>
+    <div class="theme-switcher-wrapper" id="theme-switcher-wrapper">
+      <span>Themes color</span>
+    </div>
+    <div class="theme-switcher-button" id="theme-switcher-button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+        <path fill="currentColor" d="M352 0H32C14.33 0 0 14.33 0 32v224h384V32c0-17.67-14.33-32-32-32zM0 320c0 35.35 28.66 64 64 64h64v64c0 35.35 28.66 64 64 64s64-28.65 64-64v-64h64c35.34 0 64-28.65 64-64v-32H0v32zm192 104c13.25 0 24 10.74 24 24 0 13.25-10.75 24-24 24s-24-10.75-24-24c0-13.26 10.75-24 24-24z"></path>
+      </svg>
+    </div>
+  </main>
+</div>
+</div> <!-- .container -->
+</div> <!-- .page-section -->
 
-        <h1 class="mb-4"><i class="fas fa-user-circle mr-2"></i>Welcome, {{ username }}!</h1>
-        <img src="{{ profile_image }}" alt="Profile Image" class="img-fluid mb-4">
-        
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <form action="{{ url_for('update_profile') }}" method="post">
-                    <div class="form-group">
-                        <label for="new_username"><i class="fas fa-edit mr-2"></i>Update Username:</label>
-                        <input type="text" id="new_username" name="new_username" required class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-save"></i>Update</button>
-                </form>
-            </div>
-        </div>
 
+<div class="page-section bg-light">
+  <div class="container">
+      <div class="row justify-content-center align-items-center h-100">
+      <div class="col-md-6 wow fadeInUp">
+      <form action="#" method="post" enctype="multipart/form-data" >
+          <div class="form-group fullname">
+              <label for="new_username">Update Username <span style="color: red;">*</span></label>
+              <input type="text" id="new_username" name="new_username" required class="form-control" placeholder="Update username">
+          </div>
+          <div class="form-group submit-btn">
+              <button type="submit" class="btn btn-primary btn-block">Update</button>
+          </div>
+        </form>
         <div class="text-left">
-            <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
-                <button type="submit" class="btn btn-danger btn-with-icon"><i class="fas fa-trash-alt"></i>Delete Account</button>
-            </form>
+          <form action="{{ url_for('delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+              <button type="submit" class="btn btn-danger btn-block">Delete Account</button>
+          </form>
+      </div>
+      <!-- <div class="col-lg-6 py-3 wow fadeInRight">
+          <div class="img-fluid py-3 text-center">
+            <img src="{{ url_for('static', filename='img/about_frame.png') }}" alt="">
+          </div>
         </div>
-        
-    </div>
-    
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <form action="{{ url_for('add_feedback') }}" method="GET">
-                    <button type="submit" class="btn btn-primary btn-with-icon"><i class="fas fa-comment mr-2"></i>User's Feedback</button>
-                </form>
-            </div>
+      </div> -->
+  </div>
+  </div> <!-- .container -->
+</div> <!-- .page-section -->
+</div>
+
+<footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-3 py-3">
+        <h5><span class="text-primary">අකුරු </span>GEN</h5>
+        <p>Experience Seamless Sinhala-English Communication! SEES translation with Akuru GEN. Our AI powered platform is designed to provide</p>
+        <div class="social-media-button">
+          <a href="#"><span class="mai-logo-facebook-f"></span></a>
+          <a href="#"><span class="mai-logo-twitter"></span></a>
+          <a href="#"><span class="mai-logo-google-plus-g"></span></a>
+          <a href="#"><span class="mai-logo-instagram"></span></a>
+          <a href="#"><span class="mai-logo-youtube"></span></a>
         </div>
+      </div>
+      <div class="col-lg-3 py-3">
+        <h5>Company</h5>
+        <ul class="footer-menu">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="#">Advertise</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Help & Support</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 py-3">
+        <h5>Contact Us</h5>
+        <p>3671 Whispymound Drive, Vinewood Hills, Los Santos, San Andreas California, USA</p>
+        <a href="#" class="footer-link">+00 1122 3344 5566</a>
+        <a href="#" class="footer-link">akurugen@Support.gmail.com</a>
+      </div>
+      <div class="col-lg-3 py-3">
+        <h5>Newsletter</h5>
+        <p>Get updates, news or events on your mail.</p>
+        <form action="#">
+          <input type="text" class="form-control" placeholder="Enter your email..">
+          <button type="submit" class="btn btn-success btn-block mt-2">Subscribe</button>
+        </form>
+      </div>
     </div>
-    
-    <div class="container mt-4">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-    </div>
+
+    <p class="text-center" id="copyright">Copyright &copy; 2024. Design and develop by <a href="https://www.linkedin.com/in/thamindusulakshana/">අකුරු GEN</a></p>
+  </div>
+  
+</footer>
+
+<script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/wow/wow.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
+
 </body>
 </html>
