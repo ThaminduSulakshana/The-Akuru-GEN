@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
-from hashlib import sha256
-import uuid
-from functools import wraps
 import config
+from functools import wraps
 import certifi
+import re
 
 # Connecting to MongoDB database
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
@@ -12,7 +11,6 @@ db = client["gg"]
 col = db["gg"]
 
 def feedback_routes(app):
-    # Decorator to check if the user is logged in
     def login_required(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -22,18 +20,26 @@ def feedback_routes(app):
             return f(*args, **kwargs)
         return decorated_function
 
+    def validate_email(email):
+        return bool(re.match(r'^[\w.-]+@[\w.-]+\.\w+$', email))
+
     @app.route('/add_feedback', methods=['GET', 'POST'])
     @login_required
     def add_feedback():
-        """
-        Endpoint to add feedback.
-        """
         if request.method == 'POST':
-            feedback = request.form['feedback']
+            email = request.form['email']
+            outcome = request.form['outcome']
+            feedback_details = request.form['feedback_details']
             current_user = session['username']
-            # Updating user's feedback in the database
-            col.update_one({'username': current_user}, {'$push': {'feedback': feedback}})
-            flash('Feedback added successfully.', 'success')
+
+            if not validate_email(email):
+                flash('Invalid email format.', 'error')
+                return redirect(url_for('add_feedback'))
+
+            col.update_one({'username': current_user}, {'$push': {
+                'feedback': {'email': email, 'outcome': outcome, 'details': feedback_details}
+            }})
+            flash('Feedback added successfully', 'success')
             return redirect(url_for('add_feedback'))
         else:
             current_user = session['username']
@@ -41,39 +47,42 @@ def feedback_routes(app):
             if user_data:
                 feedback = user_data.get('feedback', [])
                 feedback_enum = list(enumerate(feedback))
-            
-            # Fetching feedback and usernames from all users
+
             all_feedback_data = col.find({}, {'username': 1, 'feedback': 1})
             all_feedback = []
             for data in all_feedback_data:
                 for fb in data.get('feedback', []):
                     all_feedback.append({'username': data['username'], 'feedback': fb})
-                
-        return render_template('feedback.html', feedback_enum=feedback_enum, all_feedback=all_feedback)
+
+        return render_template('feedback.html', username=session['username'], feedback_enum=feedback_enum, all_feedback=all_feedback)
 
 
     @app.route('/update_feedback/<int:feedback_index>', methods=['POST'])
     @login_required
     def update_feedback(feedback_index):
-        """
-        Endpoint to update feedback.
-        """
-        new_feedback = request.form['new_feedback']
+        new_email = request.form['email']
+        new_outcome = request.form['outcome']
+        new_feedback_details = request.form['feedback_details']
         current_user = session['username']
-        # Updating the specified feedback for the user in the database
-        col.update_one({'username': current_user}, {'$set': {'feedback.' + str(feedback_index): new_feedback}})
-        flash('Feedback updated successfully', 'success')
+
+        if not validate_email(new_email):
+            flash('Invalid email format.', 'error')
+            return redirect(url_for('add_feedback'))
+
+        col.update_one({'username': current_user, 'feedback.email': new_email}, {'$set': {
+            'feedback.$.outcome': new_outcome,
+            'feedback.$.details': new_feedback_details
+        }})
+        flash('Feedback updated successfully.', 'success')
         return redirect(url_for('add_feedback'))
 
     @app.route('/delete_feedback/<int:feedback_index>', methods=['POST'])
     @login_required
     def delete_feedback(feedback_index):
-        """
-        Endpoint to delete feedback.
-        """
         current_user = session['username']
-        # Removing the specified feedback for the user from the database
         col.update_one({'username': current_user}, {'$unset': {'feedback.' + str(feedback_index): ""}})
         col.update_one({'username': current_user}, {'$pull': {'feedback': None}})
         flash('Feedback deleted successfully.', 'success')
         return redirect(url_for('add_feedback'))
+    
+    
