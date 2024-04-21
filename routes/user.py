@@ -35,16 +35,21 @@ def user_routes(app):
                 flash('Invalid username or password', 'error')
         return render_template('login.html')
 
+
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'POST':
             username = request.form['username']
-            email = request.form['email']  # Add this line to retrieve email from the form
+            email = request.form['email']
             password = request.form['password']
             confirm_password = request.form['confirm_password']
-            if password == confirm_password:
+            # Check if username or email already exists
+            existing_user = col.find_one({'$or': [{'username': username}, {'email': email}]})
+            if existing_user:
+                flash('Username or email already exists', 'error')
+            elif password == confirm_password:
                 hashed_password = sha256(password.encode("utf-8")).hexdigest()
-                col.insert_one({'_id': uuid.uuid4().hex, 'username': username, 'email': email, 'password': hashed_password})  # Include email in the data inserted into the database
+                col.insert_one({'_id': uuid.uuid4().hex, 'username': username, 'email': email, 'password': hashed_password})
                 flash('Registration successful! You can now log in.', 'success')
                 return redirect(url_for('login'))
             else:
@@ -54,9 +59,7 @@ def user_routes(app):
     @app.route('/welcome')
     @login_required
     def welcome():
-        user = col.find_one({'username': session['username']})
-        email = user.get('email')  # Retrieve user's email from the database
-        return render_template('profile.html', username=session['username'], email=email)
+        return render_template('profile.html', username=session['username'])
 
     @app.route('/delete_profile', methods=['GET', 'POST'])
     @login_required
@@ -79,6 +82,16 @@ def user_routes(app):
             flash('Your profile has been updated.', 'success')
             return redirect(url_for('welcome'))
         return render_template('profile.html', username=session['username'])
+    
+    @app.route('/update_email', methods=['GET', 'POST'])
+    @login_required
+    def update_email():
+        if request.method == 'POST':
+            new_email = request.form['new_email']
+            col.update_one({'username': session['username']}, {'$set': {'email': new_email}})
+            flash('Your email has been updated.', 'success')
+            return redirect(url_for('welcome'))
+        return render_template('update_email.html', email=session['email'])
 
 
     @app.route('/logout')
