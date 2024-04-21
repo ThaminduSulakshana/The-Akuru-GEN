@@ -59,7 +59,9 @@ def user_routes(app):
     @app.route('/welcome')
     @login_required
     def welcome():
-        return render_template('profile.html', username=session['username'])
+        user = col.find_one({'username': session['username']})
+        email = user.get('email')  # Retrieve user's email from the database
+        return render_template('profile.html', username=session['username'], email=email)
 
     @app.route('/delete_profile', methods=['GET', 'POST'])
     @login_required
