@@ -7,14 +7,5 @@
     }, 3000); // Adjust the time as needed (3 seconds in this example)
 });
 
-// Function to hide custom alert messages after a certain time
-document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(function() {
-        document.querySelectorAll('.custom-alert').forEach(function(alert) {
-            alert.style.display = 'none';
-        });
-    }, 3000); // Adjust the time as needed (3 seconds in this example)
-});
-
         
         

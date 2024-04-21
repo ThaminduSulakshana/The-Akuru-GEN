@@ -39,11 +39,12 @@ def user_routes(app):
     def register():
         if request.method == 'POST':
             username = request.form['username']
+            email = request.form['email']  # Add this line to retrieve email from the form
             password = request.form['password']
             confirm_password = request.form['confirm_password']
             if password == confirm_password:
                 hashed_password = sha256(password.encode("utf-8")).hexdigest()
-                col.insert_one({'_id': uuid.uuid4().hex, 'username': username, 'password': hashed_password})
+                col.insert_one({'_id': uuid.uuid4().hex, 'username': username, 'email': email, 'password': hashed_password})  # Include email in the data inserted into the database
                 flash('Registration successful! You can now log in.', 'success')
                 return redirect(url_for('login'))
             else:
@@ -53,7 +54,9 @@ def user_routes(app):
     @app.route('/welcome')
     @login_required
     def welcome():
-        return render_template('profile.html', username=session['username'])
+        user = col.find_one({'username': session['username']})
+        email = user.get('email')  # Retrieve user's email from the database
+        return render_template('profile.html', username=session['username'], email=email)
 
     @app.route('/delete_profile', methods=['GET', 'POST'])
     @login_required
