@@ -144,7 +144,7 @@
   <div class="container">
       <div class="row justify-content-center align-items-center h-100">
       <div class="col-md-6 wow fadeInUp">
-      <form action="#" method="post" enctype="multipart/form-data" >
+      <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data" >
           <div class="form-group fullname">
               <label for="new_username">Update Username <span style="color: red;">*</span></label>
               <input type="text" id="new_username" name="new_username" required class="form-control" placeholder="Update username">
