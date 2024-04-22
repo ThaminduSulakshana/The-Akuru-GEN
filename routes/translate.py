@@ -5,6 +5,12 @@ import gtts
 from gtts import gTTS
 import time
 import langid
+import re
+import nltk
+nltk.download('punkt')
+from sumy.summarizers.text_rank import TextRankSummarizer
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.parsers.plaintext import PlaintextParser
 
 def translation_routes(app):
     # Get language codes and names for translation options
@@ -62,3 +68,27 @@ def translation_routes(app):
         
         # Return the detected language name
         return jsonify(language_codes.get(lang, "Unknown"))
+    
+    @app.route("/summarization", methods=['GET', 'POST'])
+    def summarize():
+        if request.method == 'POST':
+            inputtext = request.form['inputtext_']
+            inputtext = str(re.sub(' +', ' ', inputtext))
+
+            sentence_count = len(re.split(r'[.!?]+', inputtext))
+
+            summarizer = TextRankSummarizer()
+            parser = PlaintextParser.from_string(inputtext, Tokenizer('english'))
+
+             # Ranking sentences on the basis of TextRank algorithm and choosing top 2 sentences for summary
+            summary_sentences = summarizer(parser.document, round(0.2 * sentence_count))
+
+            summary = ""
+            for sentence in summary_sentences:
+                summary += str(sentence) + " "
+                
+
+            return render_template("translate.html", data={'summary': summary})
+
+        # If the request method is GET or other, just render the template without summarization
+        return render_template("translate.html")

@@ -160,6 +160,26 @@
         </div> <!-- .container -->
       </div> <!-- .page-section -->
 
+      <!-- Summarize Content -->
+      <div class="container mt-5">
+        <div class="text-area">
+            <form class="form" method="post" action="{{ url_for('summarize') }}">
+                <textarea name="inputtext_" id="inputtext_" cols="80" rows="15" style="resize: none;">{{ translated_text }}</textarea>
+                <div class="wrapper">
+                    <button class="button secondary" type="submit">Summarize</button>
+                  </div>
+              </form>
+        </div>
+        <div class="container">
+          <h4><b>Summary:</b></h4>
+          <div class="output">
+              {% if data %}
+                  <p>{{ data['summary'] }}</p>
+              {% else %}
+                  <p>No summary available.</p>
+              {% endif %}
+          </div>
+      </div>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
