@@ -90,7 +90,14 @@ def translation_routes(app):
             # Calculate word count for summary
             summary_word_count = len(summary.split())
 
-            return render_template("translate.html", data={'summary': summary, 'word_count': summary_word_count})
+            # Calculate word count for translated text
+            translated_word_count = len(inputtext.split())
+
+            return render_template("translate.html", data={'translated_text': inputtext,
+                                                        'translated_word_count': translated_word_count,
+                                                        'summary': summary,
+                                                        'word_count': summary_word_count})
 
         # If the request method is GET or other, just render the template without summarization
         return render_template("translate.html")
+

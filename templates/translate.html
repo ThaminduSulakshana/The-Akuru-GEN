@@ -149,16 +149,27 @@
             </div>
           </form>
 
+        <!-- Translated Text Section -->
           <div class="mt-5 border p-3">
-            <h3 class="mb-3">Summary</h3>
+            <h3 class="mb-3">Translated Text</h3>
             {% if data %}
-              <p>{{ data['summary'] }}</p>
-              <li class="breadcrumb-item active">Word Count: {{ data.word_count }}</li>
+                <p>{{ data.translated_text }}</p>
+                <li class="breadcrumb-item active">Word Count: {{ data.translated_word_count }}</li>
             {% else %}
-              <p>No summary available.</p>
+                <p>No translated text available.</p>
             {% endif %}
           </div>
-          
+
+          <!-- Summary Section -->
+          <div class="mt-5 border p-3">
+            <h3 class="mb-3">Summary</h3>
+            {% if data and data.summary %}
+                <p>{{ data.summary }}</p>
+                <li class="breadcrumb-item active">Word Count: {{ data.word_count }}</li>
+            {% else %}
+                <p>No summary available.</p>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
