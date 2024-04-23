@@ -141,8 +141,9 @@
           <form class="form" method="post" action="{{ url_for('summarize') }}">
             <div class="mb-3">
               <textarea class="form-control" name="inputtext_" id="inputtext_" rows="15" cols="50" style="resize: none;" oninput="updateWordCount()">{{ translated_text }}</textarea>
-              <span id="wordCountSpan" style="font-size: 12px;"></span>
+             
             </div>
+            <div class="breadcrumb-item active"><span id="wordCountSpan" style="font-size: 16px;"></span></div><br>
             <div class="mb-3">
               <button class="btn btn-primary" type="submit">Summarize</button>
             </div>
