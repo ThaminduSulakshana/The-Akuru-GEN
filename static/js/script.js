@@ -156,5 +156,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
- // Selecting form, email field, and password field
+ //  summary word count to translation
+ function updateWordCount() {
+    var textarea = document.getElementById("inputtext_");
+    var wordCountSpan = document.getElementById("wordCountSpan");
+
+    var words = textarea.value.trim().split(/\s+/); // Split text by whitespace
+    var wordCount = words.length;
+
+    wordCountSpan.textContent = "Word Count: " + wordCount;
+  }
  
