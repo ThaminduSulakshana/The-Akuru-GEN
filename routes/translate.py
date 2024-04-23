@@ -80,15 +80,17 @@ def translation_routes(app):
             summarizer = TextRankSummarizer()
             parser = PlaintextParser.from_string(inputtext, Tokenizer('english'))
 
-             # Ranking sentences on the basis of TextRank algorithm and choosing top 2 sentences for summary
+            # Ranking sentences on the basis of TextRank algorithm and choosing top 2 sentences for summary
             summary_sentences = summarizer(parser.document, round(0.2 * sentence_count))
 
             summary = ""
             for sentence in summary_sentences:
                 summary += str(sentence) + " "
-                
 
-            return render_template("translate.html", data={'summary': summary})
+            # Calculate word count for summary
+            summary_word_count = len(summary.split())
+
+            return render_template("translate.html", data={'summary': summary, 'word_count': summary_word_count})
 
         # If the request method is GET or other, just render the template without summarization
         return render_template("translate.html")
