@@ -242,6 +242,17 @@
       <p class="text-center" id="copyright">Copyright &copy; 2024. Design and develop by <a href="https://www.linkedin.com/in/thamindusulakshana/">අකුරු GEN</a></p>
     </div>
   </footer>
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <!-- Display flash messages -->
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
 
   <!-- Scripts -->
   <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
