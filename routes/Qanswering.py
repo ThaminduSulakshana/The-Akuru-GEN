@@ -1,11 +1,12 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
-from hashlib import sha256
-import uuid
 from functools import wraps
 import config
 import certifi
 import pickle
+import googletrans
+from googletrans import Translator
+import langid
 
 # Establishing connection to MongoDB
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
@@ -15,6 +16,19 @@ col = db["gg"]
 # Load the question-answering pipeline from the pickle file
 with open('models/question_answerer_pipeline.pkl', 'rb') as model_file:
     question_answerer = pickle.load(model_file)
+
+# Get language codes and names for translation options
+language_codes = googletrans.LANGUAGES
+
+def detect_language(text):
+    # Use langid library to detect language
+    lang, _ = langid.classify(text)
+    return lang
+
+def translate_text(text, target_lang):
+    translator = Translator()
+    translation = translator.translate(text, dest=target_lang)
+    return translation.text
 
 def Qanswering_routes(app):
     """
@@ -61,7 +75,25 @@ def Qanswering_routes(app):
         context = request.form['context']
         question = request.form['question']
 
+        # Detect the language of the question
+        input_language = detect_language(question)
+
+
         # Use the question-answering pipeline to get the answer
         answer = question_answerer(question=question, context=context)
 
-        return render_template('Qanswering.html', context=context, question=question, answer=answer['answer'])
+            # Translate the answer back to the original language if needed
+        if input_language == 'si':
+            answer_text = translate_text(answer['answer'], 'si')
+        else:
+            answer_text = answer['answer']
+
+        # Translate the answer to English if the question was in English
+        if input_language == 'en':
+            answer_text = translate_text(answer_text, 'en')
+
+        return render_template('Qanswering.html', context=context, question=question,
+                               answer=answer_text)
+
+
+
