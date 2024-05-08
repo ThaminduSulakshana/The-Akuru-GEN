@@ -41,9 +41,7 @@ def subscribe_routes(app):
                 session['subscription_level'] = subscription_level
                 flash(f'You have subscribed to the {subscription_level.capitalize()} package.', 'success')
 
-            # return redirect(url_for('subscribe'))
-            # Redirect to the home page after subscribing
-            return redirect(url_for('welcome'))
+            return redirect(url_for('subscribe'))
         
         # Render the subscription page with default subscription set to 'free'
         return render_template('subscribe.html', default_subscription='free')

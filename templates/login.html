@@ -118,57 +118,67 @@
     </div> <!-- .container -->
   </div>
 </div> <!-- .page-section -->
-<footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-lg-3 py-3">
-        <h5><span class="text-primary">අකුරු </span>GEN</h5>
-        <p>Experience Seamless Sinhala-English Communication! SEES translation with Akuru GEN. Our AI powered platform is designed to provide</p>
-        <div class="social-media-button">
-          <a href="#"><span class="mai-logo-facebook-f"></span></a>
-          <a href="#"><span class="mai-logo-twitter"></span></a>
-          <a href="#"><span class="mai-logo-google-plus-g"></span></a>
-          <a href="#"><span class="mai-logo-instagram"></span></a>
-          <a href="#"><span class="mai-logo-youtube"></span></a>
+
+  <!-- Footer -->
+  <footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-3 py-3">
+          <h5><span class="text-primary">අකුරු </span>GEN</h5>
+          <p>Experience Seamless Sinhala-English Communication! SEES translation with Akuru GEN. Our AI-powered platform is designed to provide</p>
+          <div class="social-media-button">
+            <a href="#"><span class="mai-logo-facebook-f"></span></a>
+            <a href="#"><span class="mai-logo-twitter"></span></a>
+            <a href="#"><span class="mai-logo-google-plus-g"></span></a>
+            <a href="#"><span class="mai-logo-instagram"></span></a>
+            <a href="#"><span class="mai-logo-youtube"></span></a>
+          </div>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>Company</h5>
+          <ul class="footer-menu">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Help & Support</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>Contact Us</h5>
+          <p>3671 Whispymound Drive, Vinewood Hills, Los Santos, San Andreas California, USA</p>
+          <a href="#" class="footer-link">+00 1122 3344 5566</a>
+          <a href="#" class="footer-link">akurugen@Support.gmail.com</a>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>Newsletter</h5>
+          <p>Get updates, news or events on your mail.</p>
+          <form action="#">
+            <input type="text" class="form-control" placeholder="Enter your email..">
+            <button type="submit" class="btn btn-success btn-block mt-2">Subscribe</button>
+          </form>
         </div>
       </div>
-      <div class="col-lg-3 py-3">
-        <h5>Company</h5>
-        <ul class="footer-menu">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Career</a></li>
-          <li><a href="#">Advertise</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Help & Support</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 py-3">
-        <h5>Contact Us</h5>
-        <p>3671 Whispymound Drive, Vinewood Hills, Los Santos, San Andreas California, USA</p>
-        <a href="#" class="footer-link">+00 1122 3344 5566</a>
-        <a href="#" class="footer-link">akurugen@Support.gmail.com</a>
-      </div>
-      <div class="col-lg-3 py-3">
-        <h5>Newsletter</h5>
-        <p>Get updates, news or events on your mail.</p>
-        <form action="#">
-          <input type="text" class="form-control" placeholder="Enter your email..">
-          <button type="submit" class="btn btn-success btn-block mt-2">Subscribe</button>
-        </form>
-      </div>
+      <p class="text-center" id="copyright">Copyright &copy; 2024. Design and develop by <a href="https://www.linkedin.com/in/thamindusulakshana/">අකුරු GEN</a></p>
     </div>
+  </footer>
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <!-- Display flash messages -->
+      <div class="alert alert-{{ category }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
 
-    <p class="text-center" id="copyright">Copyright &copy; 2024. Design and develop by <a href="https://www.linkedin.com/in/thamindusulakshana/">අකුරු GEN</a></p>
-  </div>
-  
-</footer>
-
-<script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
-<script src="{{ url_for('static', filename='vendor/wow/wow.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
-
-
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/wow/wow.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 </html>

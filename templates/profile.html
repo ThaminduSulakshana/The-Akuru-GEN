@@ -144,7 +144,7 @@
   <div class="container">
       <div class="row justify-content-center align-items-center h-100">
       <div class="col-md-6 wow fadeInUp">
-      <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data" >
+      <form action="#" method="post" enctype="multipart/form-data" >
           <div class="form-group fullname">
               <label for="new_username">Update Username <span style="color: red;">*</span></label>
               <input type="text" id="new_username" name="new_username" required class="form-control" placeholder="Update username">
@@ -213,7 +213,17 @@
   </div>
   
 </footer>
-
+<div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" role="alert">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+  {% endwith %}
+</div>
 <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
