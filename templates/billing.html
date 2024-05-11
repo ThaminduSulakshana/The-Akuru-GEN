@@ -171,7 +171,7 @@
                     </div>
                 <div class="form-group submit-btn">
                     <button href="#BA_from" type="submit" class="btn btn-primary">Update</button>
-                    <button type="submit" formaction="{{ url_for('delete_billing', billing_index=index) }}" class="btn btn-danger">Delete Feedback</button>
+                    <button type="submit" formaction="{{ url_for('delete_billing', billing_index=index) }}" class="btn btn-danger">Delete</button>
                 </div>
               </form>
               {% endfor %}
@@ -190,8 +190,8 @@
                         <p><strong>Card Nickname:</strong> {{ billing_address.card_nickname }}</p>
                         <p><strong>Card Number:</strong> {{ billing_address.card_number }}</p>
                         <p><strong>Expiry Date:</strong> {{ billing_address.expiry_date }}</p>
-                        <a href="about.html" class="btn btn-primary mt-3">Read More</a>
                     </div>
+                    <br>
                 {% endfor %}
             {% else %}
                 <div class="col-lg-12 py-3">
@@ -224,7 +224,10 @@
                         <p><strong>Card Nickname:</strong> {{ billing_address.card_nickname }}</p>
                         <p><strong>Card Number:</strong> {{ billing_address.card_number }}</p>
                         <p><strong>Expiry Date:</strong> {{ billing_address.expiry_date }}</p>
-                        <a href="#BA_from" class="btn btn-primary mt-3">Read More</a>
+                          <!-- Update and Delete Buttons -->
+                      <form action="{{ url_for('delete_billing', billing_index=index) }}" method="post">
+                        <button type="submit" class="btn btn-danger mt-3">Delete</button>
+                    </form>
                     </div>
                 {% endfor %}
             {% else %}
@@ -232,12 +235,17 @@
                     <p>No billing addresses found.</p>
                 </div>
             {% endif %}
+            
         </div> <!-- .row -->
     </div>
 </div>
     </div> <!-- .container -->
 </div> <!-- .page-section -->
 
+<div class="form-group submit-btn">
+  <!-- Add the download button/link below -->
+  <a href="{{ url_for('download_billing_pdf') }}" class="btn btn-success">Download Billing Addresses as PDF</a>
+</div>
 
 <footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
     <div class="container">

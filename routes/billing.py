@@ -6,11 +6,59 @@ from functools import wraps
 import config
 import certifi
 import re
+import os
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from flask import send_file
+from reportlab.lib.utils import ImageReader
 
 # Connecting to MongoDB database
 client = MongoClient(config.MONGO_URI, tlsCAFile=certifi.where())
 db = client["gg"]
 col = db["gg"]
+
+def generate_billing_pdf(billing_addresses):
+    pdf_filename = "billing_addresses.pdf"
+    c = canvas.Canvas(pdf_filename, pagesize=letter)
+
+    # Get the absolute path to the image
+    img_path = os.path.join(os.getcwd(), 'static', 'img', 'nav-logo.png')
+
+    # Load and place the image in the PDF (centered at the top)
+    img = ImageReader(img_path)
+    img_width, img_height = img.getSize()
+    # Increase the image size by scaling factor (e.g., 2.0 for doubling size)
+    scale_factor = 0.5
+    new_width = img_width * scale_factor
+    new_height = img_height * scale_factor
+    center_x = (letter[0] - new_width) / 2
+    c.drawImage(img, center_x, letter[1] - new_height - 20, width=new_width, height=new_height)
+
+    # Draw dividing line
+    c.setStrokeColorRGB(0, 0, 0)  # Black color for the line
+    img_line_y = letter[1] - new_height - 20  # Position the line just below the image
+    c.line(50, img_line_y, letter[0] - 50, img_line_y)
+
+    # Starting y position for user details below the line
+    y_position = img_line_y - 50  # Adjust vertical spacing here
+
+    # Set font and font size for user details
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(100, y_position, "User Billing Address Report")
+    y_position -= 40
+    
+    c.setFont("Helvetica", 12)
+    # Iterate through billing addresses and display details
+    for index, billing_address in enumerate(billing_addresses):
+        c.drawString(100, y_position, f"Billing Address {index+1}: {billing_address['billing_address']}")
+        c.drawString(100, y_position - 20, f"Card Nickname: {billing_address['card_nickname']}")
+        c.drawString(100, y_position - 40, f"Card Number: {billing_address['card_number']}")
+        c.drawString(100, y_position - 60, f"Expiry Date: {billing_address['expiry_date']}")
+        c.drawString(100, y_position - 80, f"CVV: {billing_address['cvv']}")
+        y_position -= 120  # Adjust y position for next billing address
+
+    c.save()
+    return pdf_filename
 
 def billing_routes(app):
     # Decorator to check if the user is logged in
@@ -149,3 +197,18 @@ def billing_routes(app):
         col.update_one({'username': current_user}, {'$pull': {'billing_addresses': None}})
         flash('Billing address deleted successfully.', 'success')
         return redirect(url_for('add_billing'))
+
+    @app.route('/download_billing_pdf')
+    @login_required
+    def download_billing_pdf():
+        current_user = session['username']
+        user_data = col.find_one({'username': current_user})
+
+        if user_data:
+            billing_addresses = user_data.get('billing_addresses', [])
+            pdf_filename = generate_billing_pdf(billing_addresses)
+
+            return send_file(pdf_filename, as_attachment=True)
+        else:
+            flash('Error generating PDF.', 'error')
+            return redirect(url_for('add_billing'))
