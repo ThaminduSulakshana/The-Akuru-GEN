@@ -118,11 +118,11 @@
 
 <div class="page-section bg-light">
     <div class="container">
-        <div class="row align-items-center">
-        <div class="col-md-6 wow fadeInUp">
-            <h2 class="title-section">Update FeedBack</h2>
+        
+            <h2 class="title-section">{{ username }}'s Current FeedBack</h2>
             <div class="divider"></div>
         {% for index, feedback_item in feedback_enum %}
+        <p><strong>FeedBack No:</strong> {{ index + 1 }}</p> <!-- Display billing address number -->
         <form action="{{ url_for('update_feedback', feedback_index=index) }}" method="post">
             <div class="form-group email">
               <label for="email">Email <span style="color: red;">*</span></label>
@@ -145,6 +145,7 @@
                 <button type="submit" formaction="{{ url_for('delete_feedback', feedback_index=index) }}" class="btn btn-danger">Delete Feedback</button>
             </div>
           </form>
+          <br>
           {% endfor %}
         <!-- <div class="col-lg-6 py-3 wow fadeInRight">
             <div class="img-fluid py-3 text-center">
@@ -153,33 +154,20 @@
           </div>
         </div> -->
     </div>
-    {% if all_feedback %}
-    <div class="col-lg-6 py-3 wow fadeInRight">
-        <div class="feedback-item"> 
-            <span class="subhead">Your Feedback</span>
-            <div class="divider"></div>
-            {% for feedback_item in all_feedback %}
-            <p><strong>Email:</strong> {{ feedback_item['feedback']['email'] }}</p>
-            <p><strong>Desired Outcome:</strong> {{ feedback_item['feedback']['outcome'] }}</p>
-            <p><strong>Feedback Details:</strong> {{ feedback_item['feedback']['details'] }}</p>
-            {% endfor %}
-        </div>
-    </div>
-    {% else %}
-    <div class="col-lg-12 py-3">
-        <p>No feedback available.</p>
-    </div>
-    {% endif %}
 </div> <!-- .row -->
 </div> <!-- .container -->
 </div> <!-- .page-section -->
 
 <div class="page-section">
     <div class="container">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-md-6 wow fadeInUp">
-                <div class="feedback-container">
-                    <h2>Other Users' Feedback:</h2>
+        <<div class="row align-items-center">
+          <div class="col-lg-6 py-3 wow fadeInLeft">
+              <div class="img-fluid py-3 text-center">
+                  <img src="{{ url_for('static', filename='img/about_frame.png') }}" alt="">
+              </div>
+          </div>
+                <div class="col-lg-6 py-3 wow fadeInRight">
+                    <h2>All Users' Feedback:</h2>
                     <div class="divider"></div>
                     {% for feedback_item in all_feedback %}
                     <div class="mb-3">
@@ -197,8 +185,12 @@
         </div>
     </div>
 </div><!-- .page-section -->
-
 <br>
+<!-- Inside your HTML template, within the relevant section -->
+<div class="form-group submit-btn">
+  <!-- Add the download button/link below -->
+  <a href="{{ url_for('download_feedback_pdf') }}" class="btn btn-success">Download Feedback as PDF</a>
+</div>
 
 <footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
     <div class="container">
@@ -262,6 +254,7 @@
   <script src="{{ url_for('static', filename='js/google-maps.js') }}"></script>
   <script src="{{ url_for('static', filename='vendor/wow/wow.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
   
   
   </body>
