@@ -48,10 +48,11 @@ def generate_pdf(feedback_data):
     
     c.setFont("Helvetica", 12)
      # Starting y position
-    for feedback in feedback_data:
-        c.drawString(100, y_position, f"Email: {feedback['email']}")
-        c.drawString(100, y_position - 20, f"Outcome: {feedback['outcome']}")
-        c.drawString(100, y_position - 40, f"Details: {feedback['details']}")
+    for index, feedback in enumerate(feedback_data, start=1):
+        c.drawString(100, y_position, f"Feedback {index}")
+        c.drawString(100, y_position - 20, f"Email: {feedback['email']}")
+        c.drawString(100, y_position - 40, f"Outcome: {feedback['outcome']}")
+        c.drawString(100, y_position - 60, f"Details: {feedback['details']}")
         y_position -= 120  # Adjust y position for next feedback
     
     c.save()
