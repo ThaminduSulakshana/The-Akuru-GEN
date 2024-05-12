@@ -225,9 +225,10 @@
                         <p><strong>Card Number:</strong> {{ billing_address.card_number }}</p>
                         <p><strong>Expiry Date:</strong> {{ billing_address.expiry_date }}</p>
                           <!-- Update and Delete Buttons -->
-                      <form action="{{ url_for('delete_billing', billing_index=index) }}" method="post">
-                        <button type="submit" class="btn btn-danger mt-3">Delete</button>
-                    </form>
+                          <div class="form-group submit-btn">
+                            <!-- Add the download button/link below -->
+                            <a href="{{ url_for('download_billing_pdf') }}" class="btn btn-success">Download Billing Addresses Report</a>
+                          </div>
                     </div>
                 {% endfor %}
             {% else %}
@@ -239,13 +240,9 @@
         </div> <!-- .row -->
     </div>
 </div>
-    </div> <!-- .container -->
+</div> <!-- .container -->
 </div> <!-- .page-section -->
 
-<div class="form-group submit-btn">
-  <!-- Add the download button/link below -->
-  <a href="{{ url_for('download_billing_pdf') }}" class="btn btn-success">Download Billing Addresses as PDF</a>
-</div>
 
 <footer class="page-footer bg-image" style="background-image: url(../assets/img/);">
     <div class="container">
