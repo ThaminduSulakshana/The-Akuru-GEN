@@ -31,7 +31,6 @@ We acknowledge the support and contributions of our parents to the success of th
 
 "The-Akuru-GEN" [Video](https://drive.google.com/file/d/1KTZOcA0YgCKbtEV6VymJg5ECe_6gJEWX/view?usp=sharing). To access the live version of this web app [here](https://theakurugen.azurewebsites.net/).
 
-![Image Alt Text](https://github.com/ThaminduSulakshana/The-Akuru-GEN/blob/main/Screenshot%20(797).png)
 ## References
  ![Research Paper Overview](https://github.com/ThaminduSulakshana/WE_ITPM_146/blob/main/Screenshot%20(796).png)
 - [Link to Research Paper](https://drive.google.com/file/d/11cV_JpWHbx9TCLznIJ1H5-0vDH6On-Ab/view?usp=sharing) - Google Drive Link to the Research Paper PDF.
