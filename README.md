@@ -33,7 +33,7 @@ We acknowledge the support and contributions of our parents to the success of th
 
 ## References
  ![Research Paper Overview](https://github.com/ThaminduSulakshana/WE_ITPM_146/blob/main/Screenshot%20(796).png)
-- [Link to Research Paper](https://drive.google.com/file/d/11cV_JpWHbx9TCLznIJ1H5-0vDH6On-Ab/view?usp=sharing) - Google Drive Link to the Research Paper PDF.
+- [Link to Research Paper](https://lnkd.in/gZ9_5uNJ)
 
 ## License
 
